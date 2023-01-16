@@ -1,0 +1,34 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o App.cmi : cp ../bs/src/App.cmi
+o App.cmj : cp ../bs/src/App.cmj
+o App.cmt : cp ../bs/src/App.cmt
+o App.res : cp ../../src/App.res
+o Test.cmi : cp ../bs/src/Test.cmi
+o Test.cmj : cp ../bs/src/Test.cmj
+o Test.cmt : cp ../bs/src/Test.cmt
+o Test.res : cp ../../src/Test.res
+o Header.cmi : cp ../bs/src/components/Header/Header.cmi
+o Header.cmj : cp ../bs/src/components/Header/Header.cmj
+o Header.cmt : cp ../bs/src/components/Header/Header.cmt
+o Header.res : cp ../../src/components/Header/Header.res
+o History.cmi : cp ../bs/src/components/History/History.cmi
+o History.cmj : cp ../bs/src/components/History/History.cmj
+o History.cmt : cp ../bs/src/components/History/History.cmt
+o History.res : cp ../../src/components/History/History.res
+o AddTransactions.cmi : cp ../bs/src/components/AddTransactions/AddTransactions.cmi
+o AddTransactions.cmj : cp ../bs/src/components/AddTransactions/AddTransactions.cmj
+o AddTransactions.cmt : cp ../bs/src/components/AddTransactions/AddTransactions.cmt
+o AddTransactions.res : cp ../../src/components/AddTransactions/AddTransactions.res
+o Balance.cmi : cp ../bs/src/components/Balance/Balance.cmi
+o Balance.cmj : cp ../bs/src/components/Balance/Balance.cmj
+o Balance.cmt : cp ../bs/src/components/Balance/Balance.cmt
+o Balance.res : cp ../../src/components/Balance/Balance.res
+o IncomeExpense.cmi : cp ../bs/src/components/IncomeExpense/IncomeExpense.cmi
+o IncomeExpense.cmj : cp ../bs/src/components/IncomeExpense/IncomeExpense.cmj
+o IncomeExpense.cmt : cp ../bs/src/components/IncomeExpense/IncomeExpense.cmt
+o IncomeExpense.res : cp ../../src/components/IncomeExpense/IncomeExpense.res
+build install.stamp : touch App.cmi App.cmj Test.cmi Test.cmj Header.cmi Header.cmj History.cmi History.cmj AddTransactions.cmi AddTransactions.cmj Balance.cmi Balance.cmj IncomeExpense.cmi IncomeExpense.cmj 

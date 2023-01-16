@@ -1,0 +1,48 @@
+.new-txn-container{
+    margin: 1.6rem 0rem;
+}
+
+.new-txn-title{
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.new-txn-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.label{
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+.input-field{
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 0.4rem;
+    padding: 0rem 0.8rem;
+    height: 2rem;
+    font-size: 0.8rem;
+}
+
+.amount-subheading{
+    margin: 0;
+}
+
+.add-txn-button{
+    margin-top: 1rem;
+    background-color: #7a61cf;
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    color: white;
+}
+
+button:hover{
+    cursor: pointer;
+}
