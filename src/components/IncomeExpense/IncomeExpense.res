@@ -1,6 +1,6 @@
 %%raw("import './IncomeExpense.css'")
 @react.component
-let make = () => {
+let make = (~transactions) => {
     <div className="income-expense-container">
       <div className="income-container">
           <p className="income-title">{"INCOME" -> React.string}</p>

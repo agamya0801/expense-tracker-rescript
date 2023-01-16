@@ -1,2 +1,38 @@
-#Start(1673863305327)
-#Done(1673863305586)
+#Start(1673873391460)
+
+  Warning number 27
+  /Users/vrishabh/Projects/expense-tracker-rescript/src/components/Balance/Balance.res:3:13-25
+
+  1 │ %%raw("import './Balance.css'")
+  2 │ @react.component
+  3 │ let make = (~transactions) => {
+  4 │     // let color = "positive-text" -> React.string
+  5 │     <div className="balance-container">
+
+  unused variable transactions.
+
+
+  Warning number 27
+  /Users/vrishabh/Projects/expense-tracker-rescript/src/components/History/History.res:3:13-25
+
+  1 │ %%raw("import './History.css'")
+  2 │ @react.component
+  3 │ let make = (~transactions) => {
+  4 │     <div className="history-container">
+  5 │         <p className="history-title">{"History" -> React.string}</p>
+
+  unused variable transactions.
+
+
+  Warning number 27
+  /Users/vrishabh/Projects/expense-tracker-rescript/src/components/IncomeExpense/IncomeExpense.res:3:13-25
+
+  1 │ %%raw("import './IncomeExpense.css'")
+  2 │ @react.component
+  3 │ let make = (~transactions) => {
+  4 │     <div className="income-expense-container">
+  5 │       <div className="income-container">
+
+  unused variable transactions.
+
+#Done(1673873391593)

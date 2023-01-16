@@ -7,13 +7,14 @@ import './AddTransactions.css'
 ;
 
 function AddTransactions(Props) {
+  var submitHandler = Props.submitHandler;
   var match = React.useState(function () {
         return "";
       });
   var setText = match[1];
   var text = match[0];
   var match$1 = React.useState(function () {
-        return "0.00";
+        return 0.00;
       });
   var setAmount = match$1[1];
   var amount = match$1[0];
@@ -24,20 +25,19 @@ function AddTransactions(Props) {
           }));
   };
   var handleAmountChange = function ($$event) {
-    var updatedAmout = $$event.target.value;
+    var updatedAmount = $$event.target.value;
     Curry._1(setAmount, (function (param) {
-            return updatedAmout;
+            return updatedAmount;
           }));
   };
   var handleSubmit = function ($$event) {
     $$event.preventDefault();
-    console.log(text);
-    console.log(amount);
+    Curry._2(submitHandler, text, amount);
     Curry._1(setText, (function (param) {
             return "";
           }));
     Curry._1(setAmount, (function (param) {
-            return "0.00";
+            return 0.00;
           }));
   };
   return React.createElement("div", {
@@ -69,7 +69,7 @@ function AddTransactions(Props) {
                       className: "input-field",
                       placeholder: "Enter Amount",
                       type: "number",
-                      value: amount,
+                      value: String(amount),
                       onChange: handleAmountChange
                     }), React.createElement("button", {
                       className: "add-txn-button",

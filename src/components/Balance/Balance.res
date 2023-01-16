@@ -1,6 +1,6 @@
 %%raw("import './Balance.css'")
 @react.component
-let make = () => {
+let make = (~transactions) => {
     // let color = "positive-text" -> React.string
     <div className="balance-container">
       <p className="balance-title">{"YOUR BALANCE" -> React.string}</p>

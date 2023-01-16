@@ -1,8 +1,9 @@
 %%raw("import './AddTransactions.css'")
+
 @react.component
-let make = () => {
+let make = (~submitHandler) => {
     let (text, setText) = React.useState(_ => "")
-    let (amount, setAmount) = React.useState(_ => "0.00")
+    let (amount, setAmount) = React.useState(_ => 0.00)
 
     let handleTextChange = event => {
       let updatedText = ReactEvent.Form.target(event)["value"]
@@ -10,16 +11,15 @@ let make = () => {
     }
 
     let handleAmountChange = event => {
-      let updatedAmout = ReactEvent.Form.target(event)["value"]
-      setAmount(_ => updatedAmout)
+      let updatedAmount = ReactEvent.Form.target(event)["value"]
+      setAmount(_ => updatedAmount)
     }
 
     let handleSubmit = event => {
       ReactEvent.Synthetic.preventDefault(event)
-      Js.log(text)
-      Js.log(amount)
+      submitHandler(text, amount)
       setText(_ => "")
-      setAmount(_ => "0.00")
+      setAmount(_ => 0.00)
     }
 
     <div className="new-txn-container">
@@ -44,7 +44,7 @@ let make = () => {
               className="input-field"
               type_="number"
               placeholder="Enter Amount"
-              value={amount}
+              value=Belt.Float.toString(amount)
               onChange={handleAmountChange}
             />
             <button className="add-txn-button" type_="submit">{"Add Transaction" -> React.string}</button>
