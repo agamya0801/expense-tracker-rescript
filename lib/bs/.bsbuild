@@ -1,10 +1,12 @@
-6
+8
 App
 Header
 Balance
 History
+HistoryList
+Transaction
 IncomeExpense
 AddTransactions
-src	src/components/Header	src/components/Balance	src/components/History	src/components/IncomeExpense	src/components/AddTransactions	
-1	
+src	src/components/Header	src/components/Balance	src/components/History	src/Utils	src/components/IncomeExpense	src/components/AddTransactions	
+1	
 0

@@ -4,11 +4,11 @@ rule astj
   command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe  -bs-v 10.0.1 -bs-jsx 3  -absname -bs-ast -o $out $i
 o src/App.ast : astj ../../src/App.res
 rule deps
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash 81947751cd54179fe3a4b83c03909a72 $in
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash f378244572b2d882b3571f652d28d949 $in
   restat = 1
 o src/App.d : deps src/App.ast
 rule mij
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe -I src/components/IncomeExpense -I src/components/Balance -I src/components/AddTransactions -I src/components/History -I src/components/Header -I src/components -I src -I /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/@rescript/react/lib/ocaml   -bs-package-name expense-tracker-rescript -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe -I src/Utils -I src/components/IncomeExpense -I src/components/Balance -I src/components/AddTransactions -I src/components/History -I src/components/Header -I src/components -I src -I /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/@rescript/react/lib/ocaml   -bs-package-name expense-tracker-rescript -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
   dyndep = 1
   restat = 1
 o src/App.cmj src/App.cmi ../../src/App.bs.js : mij src/App.ast
@@ -18,6 +18,9 @@ o src/components/Header/Header.cmj src/components/Header/Header.cmi ../../src/co
 o src/components/History/History.ast : astj ../../src/components/History/History.res
 o src/components/History/History.d : deps src/components/History/History.ast
 o src/components/History/History.cmj src/components/History/History.cmi ../../src/components/History/History.bs.js : mij src/components/History/History.ast
+o src/components/History/HistoryList.ast : astj ../../src/components/History/HistoryList.res
+o src/components/History/HistoryList.d : deps src/components/History/HistoryList.ast
+o src/components/History/HistoryList.cmj src/components/History/HistoryList.cmi ../../src/components/History/HistoryList.bs.js : mij src/components/History/HistoryList.ast
 o src/components/AddTransactions/AddTransactions.ast : astj ../../src/components/AddTransactions/AddTransactions.res
 o src/components/AddTransactions/AddTransactions.d : deps src/components/AddTransactions/AddTransactions.ast
 o src/components/AddTransactions/AddTransactions.cmj src/components/AddTransactions/AddTransactions.cmi ../../src/components/AddTransactions/AddTransactions.bs.js : mij src/components/AddTransactions/AddTransactions.ast
@@ -27,3 +30,6 @@ o src/components/Balance/Balance.cmj src/components/Balance/Balance.cmi ../../sr
 o src/components/IncomeExpense/IncomeExpense.ast : astj ../../src/components/IncomeExpense/IncomeExpense.res
 o src/components/IncomeExpense/IncomeExpense.d : deps src/components/IncomeExpense/IncomeExpense.ast
 o src/components/IncomeExpense/IncomeExpense.cmj src/components/IncomeExpense/IncomeExpense.cmi ../../src/components/IncomeExpense/IncomeExpense.bs.js : mij src/components/IncomeExpense/IncomeExpense.ast
+o src/Utils/Transaction.ast : astj ../../src/Utils/Transaction.res
+o src/Utils/Transaction.d : deps src/Utils/Transaction.ast
+o src/Utils/Transaction.cmj src/Utils/Transaction.cmi ../../src/Utils/Transaction.bs.js : mij src/Utils/Transaction.ast

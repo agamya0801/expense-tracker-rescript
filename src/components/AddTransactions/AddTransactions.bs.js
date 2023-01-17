@@ -14,7 +14,7 @@ function AddTransactions(Props) {
   var setText = match[1];
   var text = match[0];
   var match$1 = React.useState(function () {
-        return 0.00;
+        return "";
       });
   var setAmount = match$1[1];
   var amount = match$1[0];
@@ -37,7 +37,7 @@ function AddTransactions(Props) {
             return "";
           }));
     Curry._1(setAmount, (function (param) {
-            return 0.00;
+            return "";
           }));
   };
   return React.createElement("div", {
@@ -69,7 +69,7 @@ function AddTransactions(Props) {
                       className: "input-field",
                       placeholder: "Enter Amount",
                       type: "number",
-                      value: String(amount),
+                      value: amount,
                       onChange: handleAmountChange
                     }), React.createElement("button", {
                       className: "add-txn-button",

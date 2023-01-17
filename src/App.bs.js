@@ -14,7 +14,7 @@ import './App.css'
 
 var initialTransaction = [{
     text: "",
-    amount: 0.00
+    amount: ""
   }];
 
 function App(Props) {
@@ -25,14 +25,14 @@ function App(Props) {
   var transactions = match[0];
   var addTransaction = function (text, amount) {
     var prevTransactionArray = transactions.slice();
-    var newTransactionArray = Js_array.concat([{
-            text: text,
-            amount: amount
-          }], prevTransactionArray);
+    var latestTransaction = [{
+        text: text,
+        amount: amount
+      }];
+    var newTransactionArray = Js_array.concat(latestTransaction, prevTransactionArray);
     Curry._1(setTransactions, (function (param) {
             return newTransactionArray;
           }));
-    console.log(newTransactionArray);
   };
   return React.createElement("div", {
               className: "main-container"

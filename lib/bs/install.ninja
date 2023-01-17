@@ -15,6 +15,10 @@ o History.cmi : cp ../bs/src/components/History/History.cmi
 o History.cmj : cp ../bs/src/components/History/History.cmj
 o History.cmt : cp ../bs/src/components/History/History.cmt
 o History.res : cp ../../src/components/History/History.res
+o HistoryList.cmi : cp ../bs/src/components/History/HistoryList.cmi
+o HistoryList.cmj : cp ../bs/src/components/History/HistoryList.cmj
+o HistoryList.cmt : cp ../bs/src/components/History/HistoryList.cmt
+o HistoryList.res : cp ../../src/components/History/HistoryList.res
 o AddTransactions.cmi : cp ../bs/src/components/AddTransactions/AddTransactions.cmi
 o AddTransactions.cmj : cp ../bs/src/components/AddTransactions/AddTransactions.cmj
 o AddTransactions.cmt : cp ../bs/src/components/AddTransactions/AddTransactions.cmt
@@ -27,4 +31,8 @@ o IncomeExpense.cmi : cp ../bs/src/components/IncomeExpense/IncomeExpense.cmi
 o IncomeExpense.cmj : cp ../bs/src/components/IncomeExpense/IncomeExpense.cmj
 o IncomeExpense.cmt : cp ../bs/src/components/IncomeExpense/IncomeExpense.cmt
 o IncomeExpense.res : cp ../../src/components/IncomeExpense/IncomeExpense.res
-build install.stamp : touch App.cmi App.cmj Header.cmi Header.cmj History.cmi History.cmj AddTransactions.cmi AddTransactions.cmj Balance.cmi Balance.cmj IncomeExpense.cmi IncomeExpense.cmj 
+o Transaction.cmi : cp ../bs/src/Utils/Transaction.cmi
+o Transaction.cmj : cp ../bs/src/Utils/Transaction.cmj
+o Transaction.cmt : cp ../bs/src/Utils/Transaction.cmt
+o Transaction.res : cp ../../src/Utils/Transaction.res
+build install.stamp : touch App.cmi App.cmj Header.cmi Header.cmj History.cmi History.cmj HistoryList.cmi HistoryList.cmj AddTransactions.cmi AddTransactions.cmj Balance.cmi Balance.cmj IncomeExpense.cmi IncomeExpense.cmj Transaction.cmi Transaction.cmj 

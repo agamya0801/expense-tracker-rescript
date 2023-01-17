@@ -1,24 +1,25 @@
 %%raw("import './App.css'")
 
-type transaction = {text: string, amount: float}
-
-let initialTransaction: array<transaction> = [{text: "", amount: 0.00}]
+let initialTransaction: array<Transaction.t> = [{text: "", amount: ""}]
 
 @react.component
 let make = () => {
-    let (transactions: array<transaction>, setTransactions) = React.useState(_ => initialTransaction)
+    let (transactions, setTransactions) = React.useState(_ => initialTransaction)
 
     let addTransaction = (text, amount) => {
+        // Js.log(text)
+        // Js.log(amount)
         let prevTransactionArray = Js.Array.copy(transactions)
-        let newTransactionArray = Js.Array.concat([{text, amount}], prevTransactionArray)
+        let latestTransaction: array<Transaction.t> = [{text: text, amount: amount}]
+        let newTransactionArray = Js.Array.concat(latestTransaction, prevTransactionArray)
         setTransactions(_ => newTransactionArray)
-        Js.log(newTransactionArray)
+        // Js.log(newTransactionArray)
     }
 
     <div className="main-container">
         <Header />
         <Balance transactions/>
-        <IncomeExpense transactions/>
+        <IncomeExpense transactions />
         <History transactions/>
         <AddTransactions submitHandler=addTransaction />
     </div>
