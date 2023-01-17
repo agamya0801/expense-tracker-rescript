@@ -28,8 +28,12 @@ function IncomeExpense(Props) {
                   v !== undefined ? v : 0
                 );
         }));
-  var netIncome$1 = String(netIncome);
-  var netExpense$1 = String(netExpense);
+  var isRoundedPos = netIncome >= 10000000.0;
+  var isRoundedNeg = netExpense <= -10000000.0;
+  var netIncome$1 = isRoundedPos ? netIncome / 10000000.0 : netIncome;
+  var netExpense$1 = isRoundedNeg ? netExpense / 10000000.0 : netExpense;
+  var netIncome$2 = netIncome$1.toFixed(2);
+  var netExpense$2 = netExpense$1.toFixed(2);
   return React.createElement("div", {
               className: "income-expense-container"
             }, React.createElement("div", {
@@ -38,7 +42,7 @@ function IncomeExpense(Props) {
                       className: "income-title"
                     }, "INCOME"), React.createElement("p", {
                       className: "income-amount"
-                    }, "\u20B9" + netIncome$1 + "")), React.createElement("div", {
+                    }, "\u20B9" + netIncome$2 + "")), React.createElement("div", {
                   className: "vertical-line"
                 }), React.createElement("div", {
                   className: "expense-container"
@@ -46,7 +50,7 @@ function IncomeExpense(Props) {
                       className: "expense-title"
                     }, "EXPENSE"), React.createElement("p", {
                       className: "expense-amount"
-                    }, "\u20B9" + netExpense$1 + "")));
+                    }, "\u20B9" + netExpense$2 + "")));
 }
 
 var make = IncomeExpense;

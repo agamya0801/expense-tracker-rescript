@@ -6,14 +6,11 @@ let initialTransaction: array<Transaction.t> = [{text: "", amount: ""}]
 let make = () => {
     let (transactions, setTransactions) = React.useState(_ => initialTransaction)
 
-    let addTransaction = (text, amount) => {
-        // Js.log(text)
-        // Js.log(amount)
+    let addTransaction = (~text: string, ~amount: string) => {
         let prevTransactionArray = Js.Array.copy(transactions)
         let latestTransaction: array<Transaction.t> = [{text: text, amount: amount}]
         let newTransactionArray = Js.Array.concat(latestTransaction, prevTransactionArray)
         setTransactions(_ => newTransactionArray)
-        // Js.log(newTransactionArray)
     }
 
     <div className="main-container">

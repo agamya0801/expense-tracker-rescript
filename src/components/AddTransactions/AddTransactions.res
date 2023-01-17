@@ -2,7 +2,7 @@
 
 
   @react.component
-  let make = (~submitHandler) => {
+  let make = (~submitHandler: (~text: string, ~amount: string) => unit) => {
     let (text, setText) = React.useState(_ => "")
     let (amount, setAmount) = React.useState(_ => "")
 
@@ -13,15 +13,12 @@
 
     let handleAmountChange = event => {
       let updatedAmount = ReactEvent.Form.target(event)["value"]
-      // Js.log(updatedAmount)
-      // let updatedAmount = Belt.Float.fromString(updatedAmount)
-      // setAmount(_ => switch updatedAmount { | None => 0. | Some(v) => v })
       setAmount(_ => updatedAmount)
     }
 
     let handleSubmit = event => {
       ReactEvent.Synthetic.preventDefault(event)
-      submitHandler(text, amount)
+      submitHandler(~text, ~amount)
       setText(_ => "")
       setAmount(_ => "")
     }
@@ -46,7 +43,7 @@
         </label>
         <input 
           className="input-field"
-          type_="number"
+          type_="text"
           placeholder="Enter Amount"
           value={amount}
           onChange={handleAmountChange}

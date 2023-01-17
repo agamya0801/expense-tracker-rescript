@@ -6,10 +6,13 @@ let make = (~transactions: array<Transaction.t>) => {
                     0.0, 
                     (acc, value) => acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v }
                   )
-    // let color = "positive-text" -> React.string
-  let netBalance = Belt.Float.toString(netBalance)
+
+  let sign = netBalance >= 0.0 ? "" : "-"
+  let color = netBalance >= 0.0 ? "positive-text" : "negative-text"
+  let netBalance = Js.Float.toFixedWithPrecision(netBalance, ~digits=2)
+  let netBalance = Belt.Float.fromString(netBalance) < Some(0.0) ? Js.String.sliceToEnd(~from=1, netBalance) : netBalance
   <div className="balance-container">
     <p className="balance-title">{"YOUR BALANCE" -> React.string}</p>
-    <p className="balance-amount">{`\u20B9${netBalance}` -> React.string}</p>
+    <p className=`balance-amount ${color}`>{`${sign} \u20B9${netBalance}` -> React.string}</p>
   </div>
 }

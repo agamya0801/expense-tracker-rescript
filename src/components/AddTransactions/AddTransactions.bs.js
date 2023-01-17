@@ -68,7 +68,7 @@ function AddTransactions(Props) {
                             }, "(negative-expense, positive-income)"))), React.createElement("input", {
                       className: "input-field",
                       placeholder: "Enter Amount",
-                      type: "number",
+                      type: "text",
                       value: amount,
                       onChange: handleAmountChange
                     }), React.createElement("button", {
