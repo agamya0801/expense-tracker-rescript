@@ -31,10 +31,11 @@ function $$History(Props) {
                       var sign = Caml_obj.greaterequal(Belt_Float.fromString(ele.amount), 0.0) ? "" : "-";
                       var stripColor = Caml_obj.greaterequal(Belt_Float.fromString(ele.amount), 0.0) ? "positive" : "negative";
                       var newAmount = Caml_obj.lessthan(Belt_Float.fromString(ele.amount), 0.0) ? Js_string.sliceToEnd(1, ele.amount) : ele.amount;
+                      var newText = ele.text.length > 16 ? Js_string.concat("...", Js_string.substrAtMost(0, 16, ele.text)) : ele.text;
                       return React.createElement("div", {
                                   className: "list-items"
                                 }, React.createElement(HistoryList.make, {
-                                      text: ele.text,
+                                      text: newText,
                                       amount: newAmount,
                                       sign: sign,
                                       stripColor: stripColor

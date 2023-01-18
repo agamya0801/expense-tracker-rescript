@@ -18,18 +18,27 @@ var initialTransaction = [{
   }];
 
 function App(Props) {
+  var localTxn = localStorage.getItem("storedTxn");
   var match = React.useState(function () {
-        return initialTransaction;
+        if (localTxn !== null) {
+          return JSON.parse(localTxn);
+        } else {
+          return initialTransaction;
+        }
       });
   var setTransactions = match[1];
   var transactions = match[0];
+  React.useEffect((function () {
+          var v = JSON.stringify(transactions);
+          localStorage.setItem("storedTxn", v !== undefined ? v : "");
+        }), [transactions]);
   var addTransaction = function (text, amount) {
     var prevTransactionArray = transactions.slice();
     var latestTransaction = [{
         text: text,
         amount: amount
       }];
-    var newTransactionArray = Js_array.concat(latestTransaction, prevTransactionArray);
+    var newTransactionArray = Js_array.concat(prevTransactionArray, latestTransaction);
     Curry._1(setTransactions, (function (param) {
             return newTransactionArray;
           }));

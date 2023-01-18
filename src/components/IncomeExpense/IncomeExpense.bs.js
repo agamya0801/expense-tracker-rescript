@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as Caml_obj from "rescript/lib/es6/caml_obj.js";
+import * as Js_string from "rescript/lib/es6/js_string.js";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Belt_Float from "rescript/lib/es6/belt_Float.js";
 
@@ -21,19 +22,18 @@ function IncomeExpense(Props) {
         }));
   var netExpense = Belt_Array.reduce(transactions, 0.0, (function (acc, value) {
           if (!Caml_obj.lessthan(Belt_Float.fromString(value.amount), 0.0)) {
-            return acc - 0.0;
+            return acc + 0.0;
           }
           var v = Belt_Float.fromString(value.amount);
-          return acc - (
+          return acc + (
                   v !== undefined ? v : 0
                 );
         }));
+  var netExpense$1 = netExpense * -1.0;
   var isRoundedPos = netIncome >= 10000000.0;
-  var isRoundedNeg = netExpense <= -10000000.0;
-  var netIncome$1 = isRoundedPos ? netIncome / 10000000.0 : netIncome;
-  var netExpense$1 = isRoundedNeg ? netExpense / 10000000.0 : netExpense;
-  var netIncome$2 = netIncome$1.toFixed(2);
-  var netExpense$2 = netExpense$1.toFixed(2);
+  var isRoundedNeg = netExpense$1 >= 10000000.0;
+  var netIncome$1 = isRoundedPos ? Js_string.concat("K", (netIncome / 10000000.0).toFixed(2)) : netIncome.toFixed(2);
+  var netExpense$2 = isRoundedNeg ? Js_string.concat("K", (netExpense$1 / 10000000.0).toFixed(2)) : netExpense$1.toFixed(2);
   return React.createElement("div", {
               className: "income-expense-container"
             }, React.createElement("div", {
@@ -42,7 +42,7 @@ function IncomeExpense(Props) {
                       className: "income-title"
                     }, "INCOME"), React.createElement("p", {
                       className: "income-amount"
-                    }, "\u20B9" + netIncome$2 + "")), React.createElement("div", {
+                    }, "\u20B9" + netIncome$1 + "")), React.createElement("div", {
                   className: "vertical-line"
                 }), React.createElement("div", {
                   className: "expense-container"

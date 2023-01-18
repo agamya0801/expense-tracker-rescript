@@ -26,7 +26,7 @@
     <div className="new-txn-container">
       <p className="new-txn-title">{"Add New Transactions" -> React.string}</p>
       <hr className="horizontal-line" />
-      <form className="new-txn-form" onSubmit={handleSubmit}>
+      <form className="new-txn-form" onSubmit={handleSubmit} onClick={handleSubmit}>
         <label className="label">{"Text" -> React.string}</label>
         <input 
           className="input-field"
@@ -43,7 +43,7 @@
         </label>
         <input 
           className="input-field"
-          type_="text"
+          type_="number"
           placeholder="Enter Amount"
           value={amount}
           onChange={handleAmountChange}

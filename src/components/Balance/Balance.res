@@ -9,7 +9,8 @@ let make = (~transactions: array<Transaction.t>) => {
 
   let sign = netBalance >= 0.0 ? "" : "-"
   let color = netBalance >= 0.0 ? "positive-text" : "negative-text"
-  let netBalance = Js.Float.toFixedWithPrecision(netBalance, ~digits=2)
+  let isRoundedBal = netBalance <= -10000000.0 ? true: false
+  let netBalance = isRoundedBal ? Js.String.concat("K", Js.Float.toFixedWithPrecision((netBalance /. 10000000.0), ~digits=2)) : Js.Float.toFixedWithPrecision(netBalance, ~digits=2)
   let netBalance = Belt.Float.fromString(netBalance) < Some(0.0) ? Js.String.sliceToEnd(~from=1, netBalance) : netBalance
   <div className="balance-container">
     <p className="balance-title">{"YOUR BALANCE" -> React.string}</p>

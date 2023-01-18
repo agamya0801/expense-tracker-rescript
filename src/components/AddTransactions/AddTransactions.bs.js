@@ -48,7 +48,8 @@ function AddTransactions(Props) {
                   className: "horizontal-line"
                 }), React.createElement("form", {
                   className: "new-txn-form",
-                  onSubmit: handleSubmit
+                  onSubmit: handleSubmit,
+                  onClick: handleSubmit
                 }, React.createElement("label", {
                       className: "label"
                     }, "Text"), React.createElement("input", {
@@ -68,7 +69,7 @@ function AddTransactions(Props) {
                             }, "(negative-expense, positive-income)"))), React.createElement("input", {
                       className: "input-field",
                       placeholder: "Enter Amount",
-                      type: "text",
+                      type: "number",
                       value: amount,
                       onChange: handleAmountChange
                     }), React.createElement("button", {

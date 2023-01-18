@@ -19,7 +19,8 @@ function Balance(Props) {
         }));
   var sign = netBalance >= 0.0 ? "" : "-";
   var color = netBalance >= 0.0 ? "positive-text" : "negative-text";
-  var netBalance$1 = netBalance.toFixed(2);
+  var isRoundedBal = netBalance <= -10000000.0;
+  var netBalance$1 = isRoundedBal ? Js_string.concat("K", (netBalance / 10000000.0).toFixed(2)) : netBalance.toFixed(2);
   var netBalance$2 = Caml_obj.lessthan(Belt_Float.fromString(netBalance$1), 0.0) ? Js_string.sliceToEnd(1, netBalance$1) : netBalance$1;
   return React.createElement("div", {
               className: "balance-container"
