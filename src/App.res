@@ -2,13 +2,12 @@
 
 @scope("JSON") @val
 external parseIntoMyData: string => array<Transaction.t> = "parse"
-
 let initialTransaction: array<Transaction.t> = [{text: "", amount: ""}]
 
 @react.component
 let make = () => {
     let localTxn = Dom.Storage2.getItem(Dom.Storage2.localStorage, "storedTxn") 
-    let (transactions: array<Transaction.t>, setTransactions) = React.useState(_ => switch localTxn{ | None => initialTransaction | Some(value: string) => parseIntoMyData(value)})
+    let (transactions: array<Transaction.t>, setTransactions) = React.useState(_ => switch localTxn{ | None => initialTransaction | Some(value: string) => parseIntoMyData(value) })
 
     React.useEffect1(() => {
         Dom.Storage2.setItem(Dom.Storage2.localStorage, "storedTxn", switch Js.Json.stringifyAny(transactions: array<Transaction.t>) { | None => "" | Some(v) => v })

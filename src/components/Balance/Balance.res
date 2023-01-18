@@ -1,17 +1,12 @@
 %%raw("import './Balance.css'")
 @react.component
 let make = (~transactions: array<Transaction.t>) => {
-  let netBalance = Belt.Array.reduce(
-                    transactions, 
-                    0.0, 
-                    (acc, value) => acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v }
-                  )
-
-  let sign = netBalance >= 0.0 ? "" : "-"
+  let netBalance = CalculateAmounts.calculateBalance(~transactions = transactions)
+  let sign = CheckSign.check(~amount = netBalance)
   let color = netBalance >= 0.0 ? "positive-text" : "negative-text"
-  let isRoundedBal = netBalance <= -10000000.0 ? true: false
-  let netBalance = isRoundedBal ? Js.String.concat("K", Js.Float.toFixedWithPrecision((netBalance /. 10000000.0), ~digits=2)) : Js.Float.toFixedWithPrecision(netBalance, ~digits=2)
-  let netBalance = Belt.Float.fromString(netBalance) < Some(0.0) ? Js.String.sliceToEnd(~from=1, netBalance) : netBalance
+  let isRoundedBal = IsRoundedAmount.isRoundedBal(~amount = netBalance)
+  let netBalance = AmountRoundOf.round(~isRoundedAmount = isRoundedBal, ~amount = netBalance)
+  let netBalance = RefactorNegAmount.refactor(~amount = netBalance)
   <div className="balance-container">
     <p className="balance-title">{"YOUR BALANCE" -> React.string}</p>
     <p className=`balance-amount ${color}`>{`${sign} \u20B9${netBalance}` -> React.string}</p>

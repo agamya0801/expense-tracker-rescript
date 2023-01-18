@@ -9,9 +9,16 @@ let make = (~transactions: array<Transaction.t>) => {
         <hr className="horizontal-line" />
         <div className="list">
             {finalArray -> Js.Array2.map((ele) => {
-                let sign = Belt.Float.fromString(ele.amount) >= Some(0.0) ? "" : "-"
-                let stripColor = Belt.Float.fromString(ele.amount) >= Some(0.0) ? "positive" : "negative"
-                let newAmount = Belt.Float.fromString(ele.amount) < Some(0.0) ? Js.String.sliceToEnd(~from=1, ele.amount) : ele.amount
+                let netAmount = Belt.Float.fromString(ele.amount)
+                let netAmount = switch netAmount {
+                    | None => 0.0
+                    | Some(v) => v
+                }
+                let sign = CheckSign.check(~amount = netAmount)
+                let stripColor = netAmount >= 0.0 ? "positive" : "negative"
+                let isRoundedAmount = IsRoundedAmount.isRoundedIncExp(~amount = netAmount)
+                let netAmount = AmountRoundOf.round(~amount = netAmount, ~isRoundedAmount = isRoundedAmount)
+                let newAmount = RefactorNegAmount.refactor(~amount = netAmount)
                 let newText = Js.String2.length(ele.text) > 16 ? Js.String.concat("...", Js.String.substrAtMost(~from= 0, ~length= 16, ele.text)) : ele.text
                 <div className="list-items">
                     <HistoryList text={newText} amount={newAmount} sign={sign} stripColor={stripColor}/>

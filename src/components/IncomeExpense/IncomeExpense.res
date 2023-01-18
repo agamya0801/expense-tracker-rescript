@@ -2,23 +2,13 @@
 
 @react.component
 let make = (~transactions: array<Transaction.t>) => {
-  let netIncome = Belt.Array.reduce(
-                    transactions, 
-                    0.0, 
-                    (acc, value) => (Belt.Float.fromString(value.amount) >= Some(0.0) ? acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v } : acc +. 0.0)
-                  )
-
-  let netExpense = Belt.Array.reduce(
-                    transactions, 
-                    0.0, 
-                    (acc, value) => (Belt.Float.fromString(value.amount) < Some(0.0) ? acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v } : acc +. 0.0)
-                  )
-
+  let netIncome = CalculateAmounts.calculateIncome(~transactions = transactions)
+  let netExpense = CalculateAmounts.calculateExpense(~transactions = transactions)
   let netExpense = netExpense *. -1.0
-  let isRoundedPos = netIncome >= 10000000.0 ? true : false
-  let isRoundedNeg = netExpense >= 10000000.0 ? true: false
-  let netIncome = isRoundedPos ? Js.String.concat("K", Js.Float.toFixedWithPrecision((netIncome /. 10000000.0), ~digits=2)) : Js.Float.toFixedWithPrecision(netIncome, ~digits=2)
-  let netExpense = isRoundedNeg ? Js.String.concat("K", Js.Float.toFixedWithPrecision((netExpense /. 10000000.0), ~digits=2)) : Js.Float.toFixedWithPrecision(netExpense, ~digits=2)
+  let isRoundedInc = IsRoundedAmount.isRoundedIncExp(~amount = netIncome)
+  let isRoundedExp = IsRoundedAmount.isRoundedIncExp(~amount = netExpense)
+  let netIncome = AmountRoundOf.round(~amount = netIncome, ~isRoundedAmount = isRoundedInc)
+  let netExpense = AmountRoundOf.round(~amount = netExpense, ~isRoundedAmount = isRoundedExp)
 
   <div className="income-expense-container">
     <div className="income-container">

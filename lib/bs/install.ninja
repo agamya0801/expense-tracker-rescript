@@ -35,4 +35,24 @@ o Transaction.cmi : cp ../bs/src/Utils/Transaction.cmi
 o Transaction.cmj : cp ../bs/src/Utils/Transaction.cmj
 o Transaction.cmt : cp ../bs/src/Utils/Transaction.cmt
 o Transaction.res : cp ../../src/Utils/Transaction.res
-build install.stamp : touch App.cmi App.cmj Header.cmi Header.cmj History.cmi History.cmj HistoryList.cmi HistoryList.cmj AddTransactions.cmi AddTransactions.cmj Balance.cmi Balance.cmj IncomeExpense.cmi IncomeExpense.cmj Transaction.cmi Transaction.cmj 
+o CalculateAmounts.cmi : cp ../bs/src/Utils/Functions/CalculateAmounts/CalculateAmounts.cmi
+o CalculateAmounts.cmj : cp ../bs/src/Utils/Functions/CalculateAmounts/CalculateAmounts.cmj
+o CalculateAmounts.cmt : cp ../bs/src/Utils/Functions/CalculateAmounts/CalculateAmounts.cmt
+o CalculateAmounts.res : cp ../../src/Utils/Functions/CalculateAmounts/CalculateAmounts.res
+o AmountRoundOf.cmi : cp ../bs/src/Utils/Functions/AmountRoundOf/AmountRoundOf.cmi
+o AmountRoundOf.cmj : cp ../bs/src/Utils/Functions/AmountRoundOf/AmountRoundOf.cmj
+o AmountRoundOf.cmt : cp ../bs/src/Utils/Functions/AmountRoundOf/AmountRoundOf.cmt
+o AmountRoundOf.res : cp ../../src/Utils/Functions/AmountRoundOf/AmountRoundOf.res
+o CheckSign.cmi : cp ../bs/src/Utils/Functions/CheckSign/CheckSign.cmi
+o CheckSign.cmj : cp ../bs/src/Utils/Functions/CheckSign/CheckSign.cmj
+o CheckSign.cmt : cp ../bs/src/Utils/Functions/CheckSign/CheckSign.cmt
+o CheckSign.res : cp ../../src/Utils/Functions/CheckSign/CheckSign.res
+o IsRoundedAmount.cmi : cp ../bs/src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.cmi
+o IsRoundedAmount.cmj : cp ../bs/src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.cmj
+o IsRoundedAmount.cmt : cp ../bs/src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.cmt
+o IsRoundedAmount.res : cp ../../src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.res
+o RefactorNegAmount.cmi : cp ../bs/src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.cmi
+o RefactorNegAmount.cmj : cp ../bs/src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.cmj
+o RefactorNegAmount.cmt : cp ../bs/src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.cmt
+o RefactorNegAmount.res : cp ../../src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.res
+build install.stamp : touch App.cmi App.cmj Header.cmi Header.cmj History.cmi History.cmj HistoryList.cmi HistoryList.cmj AddTransactions.cmi AddTransactions.cmj Balance.cmi Balance.cmj IncomeExpense.cmi IncomeExpense.cmj Transaction.cmi Transaction.cmj CalculateAmounts.cmi CalculateAmounts.cmj AmountRoundOf.cmi AmountRoundOf.cmj CheckSign.cmi CheckSign.cmj IsRoundedAmount.cmi IsRoundedAmount.cmj RefactorNegAmount.cmi RefactorNegAmount.cmj 

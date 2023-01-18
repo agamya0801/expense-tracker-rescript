@@ -4,11 +4,11 @@ rule astj
   command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe  -bs-v 10.0.1 -bs-jsx 3  -absname -bs-ast -o $out $i
 o src/App.ast : astj ../../src/App.res
 rule deps
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash f378244572b2d882b3571f652d28d949 $in
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash 34a29496a799a79bcbc54a17e34c8f76 $in
   restat = 1
 o src/App.d : deps src/App.ast
 rule mij
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe -I src/Utils -I src/components/IncomeExpense -I src/components/Balance -I src/components/AddTransactions -I src/components/History -I src/components/Header -I src/components -I src -I /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/@rescript/react/lib/ocaml   -bs-package-name expense-tracker-rescript -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe -I src/Utils/Functions/RefactorNegAmount -I src/Utils/Functions/IsRoundedAmount -I src/Utils/Functions/CheckSign -I src/Utils/Functions/AmountRoundOf -I src/Utils/Functions/CalculateAmounts -I src/Utils/Functions -I src/Utils -I src/components/IncomeExpense -I src/components/Balance -I src/components/AddTransactions -I src/components/History -I src/components/Header -I src/components -I src -I /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/@rescript/react/lib/ocaml   -bs-package-name expense-tracker-rescript -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
   dyndep = 1
   restat = 1
 o src/App.cmj src/App.cmi ../../src/App.bs.js : mij src/App.ast
@@ -33,3 +33,18 @@ o src/components/IncomeExpense/IncomeExpense.cmj src/components/IncomeExpense/In
 o src/Utils/Transaction.ast : astj ../../src/Utils/Transaction.res
 o src/Utils/Transaction.d : deps src/Utils/Transaction.ast
 o src/Utils/Transaction.cmj src/Utils/Transaction.cmi ../../src/Utils/Transaction.bs.js : mij src/Utils/Transaction.ast
+o src/Utils/Functions/CalculateAmounts/CalculateAmounts.ast : astj ../../src/Utils/Functions/CalculateAmounts/CalculateAmounts.res
+o src/Utils/Functions/CalculateAmounts/CalculateAmounts.d : deps src/Utils/Functions/CalculateAmounts/CalculateAmounts.ast
+o src/Utils/Functions/CalculateAmounts/CalculateAmounts.cmj src/Utils/Functions/CalculateAmounts/CalculateAmounts.cmi ../../src/Utils/Functions/CalculateAmounts/CalculateAmounts.bs.js : mij src/Utils/Functions/CalculateAmounts/CalculateAmounts.ast
+o src/Utils/Functions/AmountRoundOf/AmountRoundOf.ast : astj ../../src/Utils/Functions/AmountRoundOf/AmountRoundOf.res
+o src/Utils/Functions/AmountRoundOf/AmountRoundOf.d : deps src/Utils/Functions/AmountRoundOf/AmountRoundOf.ast
+o src/Utils/Functions/AmountRoundOf/AmountRoundOf.cmj src/Utils/Functions/AmountRoundOf/AmountRoundOf.cmi ../../src/Utils/Functions/AmountRoundOf/AmountRoundOf.bs.js : mij src/Utils/Functions/AmountRoundOf/AmountRoundOf.ast
+o src/Utils/Functions/CheckSign/CheckSign.ast : astj ../../src/Utils/Functions/CheckSign/CheckSign.res
+o src/Utils/Functions/CheckSign/CheckSign.d : deps src/Utils/Functions/CheckSign/CheckSign.ast
+o src/Utils/Functions/CheckSign/CheckSign.cmj src/Utils/Functions/CheckSign/CheckSign.cmi ../../src/Utils/Functions/CheckSign/CheckSign.bs.js : mij src/Utils/Functions/CheckSign/CheckSign.ast
+o src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.ast : astj ../../src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.res
+o src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.d : deps src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.ast
+o src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.cmj src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.cmi ../../src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.bs.js : mij src/Utils/Functions/IsRoundedAmount/IsRoundedAmount.ast
+o src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.ast : astj ../../src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.res
+o src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.d : deps src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.ast
+o src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.cmj src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.cmi ../../src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.bs.js : mij src/Utils/Functions/RefactorNegAmount/RefactorNegAmount.ast
