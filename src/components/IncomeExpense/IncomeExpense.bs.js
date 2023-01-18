@@ -13,8 +13,8 @@ function IncomeExpense(Props) {
   var netIncome = CalculateAmounts.calculateIncome(transactions);
   var netExpense = CalculateAmounts.calculateExpense(transactions);
   var netExpense$1 = netExpense * -1.0;
-  var isRoundedInc = IsRoundedAmount.isRoundedIncExp(netIncome);
-  var isRoundedExp = IsRoundedAmount.isRoundedIncExp(netExpense$1);
+  var isRoundedInc = IsRoundedAmount.isRounded(netIncome);
+  var isRoundedExp = IsRoundedAmount.isRounded(netExpense$1);
   var netIncome$1 = AmountRoundOf.round(netIncome, isRoundedInc);
   var netExpense$2 = AmountRoundOf.round(netExpense$1, isRoundedExp);
   return React.createElement("div", {

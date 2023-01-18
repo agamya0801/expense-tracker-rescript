@@ -5,8 +5,8 @@ let make = (~transactions: array<Transaction.t>) => {
   let netIncome = CalculateAmounts.calculateIncome(~transactions = transactions)
   let netExpense = CalculateAmounts.calculateExpense(~transactions = transactions)
   let netExpense = netExpense *. -1.0
-  let isRoundedInc = IsRoundedAmount.isRoundedIncExp(~amount = netIncome)
-  let isRoundedExp = IsRoundedAmount.isRoundedIncExp(~amount = netExpense)
+  let isRoundedInc = IsRoundedAmount.isRounded(~amount = netIncome)
+  let isRoundedExp = IsRoundedAmount.isRounded(~amount = netExpense)
   let netIncome = AmountRoundOf.round(~amount = netIncome, ~isRoundedAmount = isRoundedInc)
   let netExpense = AmountRoundOf.round(~amount = netExpense, ~isRoundedAmount = isRoundedExp)
 

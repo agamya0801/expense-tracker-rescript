@@ -35,7 +35,7 @@ function $$History(Props) {
                       var netAmount$1 = netAmount !== undefined ? netAmount : 0.0;
                       var sign = CheckSign.check(netAmount$1);
                       var stripColor = netAmount$1 >= 0.0 ? "positive" : "negative";
-                      var isRoundedAmount = IsRoundedAmount.isRoundedIncExp(netAmount$1);
+                      var isRoundedAmount = IsRoundedAmount.isRounded(netAmount$1);
                       var netAmount$2 = AmountRoundOf.round(netAmount$1, isRoundedAmount);
                       var newAmount = RefactorNegAmount.refactor(netAmount$2);
                       var newText = ele.text.length > 16 ? Js_string.concat("...", Js_string.substrAtMost(0, 16, ele.text)) : ele.text;

@@ -15,7 +15,7 @@ function Balance(Props) {
   var netBalance = CalculateAmounts.calculateBalance(transactions);
   var sign = CheckSign.check(netBalance);
   var color = netBalance >= 0.0 ? "positive-text" : "negative-text";
-  var isRoundedBal = IsRoundedAmount.isRoundedBal(netBalance);
+  var isRoundedBal = IsRoundedAmount.isRounded(netBalance);
   var netBalance$1 = AmountRoundOf.round(netBalance, isRoundedBal);
   var netBalance$2 = RefactorNegAmount.refactor(netBalance$1);
   return React.createElement("div", {
