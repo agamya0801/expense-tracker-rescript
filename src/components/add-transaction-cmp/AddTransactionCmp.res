@@ -26,7 +26,7 @@
     <div className="new-txn-container">
       <p className="new-txn-title">{"Add New Transactions" -> React.string}</p>
       <hr className="horizontal-line" />
-      <form className="new-txn-form" onSubmit={handleSubmit} onClick={handleSubmit}>
+      <form className="new-txn-form" onSubmit={handleSubmit}>
         <label className="label">{"Text" -> React.string}</label>
         <input 
           className="input-field"
@@ -48,7 +48,7 @@
           value={amount}
           onChange={handleAmountChange}
         />
-        <button className="add-txn-button" type_="submit">{"Add Transaction" -> React.string}</button>
+        <button className="add-txn-button" type_="submit" onClick={handleSubmit}>{"Add Transaction" -> React.string}</button>
       </form>
     </div>
   } // Module contents

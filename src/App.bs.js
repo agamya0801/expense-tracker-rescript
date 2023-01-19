@@ -18,10 +18,10 @@ var initialTransaction = [{
   }];
 
 function App(Props) {
-  var localTxn = localStorage.getItem("storedTxn");
+  var storedTxn = sessionStorage.getItem("storedTxn");
   var match = React.useState(function () {
-        if (localTxn !== null) {
-          return JSON.parse(localTxn);
+        if (storedTxn !== null) {
+          return JSON.parse(storedTxn);
         } else {
           return initialTransaction;
         }
@@ -30,7 +30,7 @@ function App(Props) {
   var transactions = match[0];
   React.useEffect((function () {
           var v = JSON.stringify(transactions);
-          localStorage.setItem("storedTxn", v !== undefined ? v : "");
+          sessionStorage.setItem("storedTxn", v !== undefined ? v : "");
         }), [transactions]);
   var addTransaction = function (text, amount) {
     var prevTransactionArray = transactions.slice();

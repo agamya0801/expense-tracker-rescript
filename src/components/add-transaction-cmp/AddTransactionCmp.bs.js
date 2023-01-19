@@ -48,8 +48,7 @@ function AddTransactionCmp(Props) {
                   className: "horizontal-line"
                 }), React.createElement("form", {
                   className: "new-txn-form",
-                  onSubmit: handleSubmit,
-                  onClick: handleSubmit
+                  onSubmit: handleSubmit
                 }, React.createElement("label", {
                       className: "label"
                     }, "Text"), React.createElement("input", {
@@ -74,7 +73,8 @@ function AddTransactionCmp(Props) {
                       onChange: handleAmountChange
                     }), React.createElement("button", {
                       className: "add-txn-button",
-                      type: "submit"
+                      type: "submit",
+                      onClick: handleSubmit
                     }, "Add Transaction")));
 }
 

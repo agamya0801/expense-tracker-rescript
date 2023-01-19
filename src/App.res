@@ -6,11 +6,11 @@ let initialTransaction: array<TransactionType.t> = [{text: "", amount: ""}]
 
 @react.component
 let make = () => {
-    let localTxn = Dom.Storage2.getItem(Dom.Storage2.localStorage, "storedTxn") 
-    let (transactions: array<TransactionType.t>, setTransactions) = React.useState(_ => switch localTxn{ | None => initialTransaction | Some(value: string) => parseIntoMyData(value) })
+    let storedTxn = Dom.Storage2.getItem(Dom.Storage2.sessionStorage, "storedTxn") 
+    let (transactions: array<TransactionType.t>, setTransactions) = React.useState(_ => switch storedTxn{ | None => initialTransaction | Some(value: string) => parseIntoMyData(value) })
 
     React.useEffect1(() => {
-        Dom.Storage2.setItem(Dom.Storage2.localStorage, "storedTxn", switch Js.Json.stringifyAny(transactions: array<TransactionType.t>) { | None => "" | Some(v) => v })
+        Dom.Storage2.setItem(Dom.Storage2.sessionStorage, "storedTxn", switch Js.Json.stringifyAny(transactions: array<TransactionType.t>) { | None => "" | Some(v) => v })
         None
     }, [transactions])
 
