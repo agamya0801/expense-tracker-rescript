@@ -2,19 +2,13 @@
 /Users/vrishabh/Projects/expense-tracker-rescript
 0
 bsconfig.json	0x1.8f13db2p+30
-src	0x1.8f1e865p+30
-src/components	0x1.8f1485bcp+30
-src/components/Header	0x1.8f140ba4p+30
-src/components/History	0x1.8f195b08p+30
-src/components/AddTransactions	0x1.8f141488p+30
-src/components/Balance	0x1.8f14138p+30
-src/components/IncomeExpense	0x1.8f1413dcp+30
-src/Utils	0x1.8f1e865p+30
-src/Utils/Functions	0x1.8f1e9994p+30
-src/Utils/Functions/CalculateAmounts	0x1.8f1e99cp+30
-src/Utils/Functions/AmountRoundOf	0x1.8f1e90fcp+30
-src/Utils/Functions/CheckSign	0x1.8f1e8d74p+30
-src/Utils/Functions/IsRoundedAmount	0x1.8f1e977cp+30
-src/Utils/Functions/RefactorNegAmount	0x1.8f1e951p+30
+src	0x1.8f24b77p+30
+src/components	0x1.8f24b758p+30
+src/components/header	0x1.8f24c2c4p+30
+src/components/add-transactions	0x1.8f141488p+30
+src/components/history	0x1.8f24c2c4p+30
+src/components/balance	0x1.8f24c194p+30
+src/components/income-expense	0x1.8f1413dcp+30
+src/utils	0x1.8f24c37cp+30
 ===
-/Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/rescript.exe	0x1.8f1ef2fp+30
+/Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/rescript.exe	0x1.8f24c37cp+30

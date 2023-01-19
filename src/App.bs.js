@@ -2,12 +2,12 @@
 
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as React from "react";
-import * as Header from "./components/Header/Header.bs.js";
-import * as Balance from "./components/Balance/Balance.bs.js";
-import * as $$History from "./components/History/History.bs.js";
+import * as Header from "./components/header/Header.bs.js";
+import * as Balance from "./components/balance/Balance.bs.js";
+import * as $$History from "./components/history/History.bs.js";
 import * as Js_array from "rescript/lib/es6/js_array.js";
-import * as IncomeExpense from "./components/IncomeExpense/IncomeExpense.bs.js";
-import * as AddTransactions from "./components/AddTransactions/AddTransactions.bs.js";
+import * as IncomeExpense from "./components/income-expense/IncomeExpense.bs.js";
+import * as AddTransactions from "./components/add-transactions/AddTransactions.bs.js";
 
 import './App.css'
 ;
