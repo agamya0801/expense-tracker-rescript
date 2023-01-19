@@ -1,13 +1,13 @@
 9
 App
-Header
-Balance
-History
+HeaderCmp
+BalanceCmp
+HistoryCmp
 AmountUtils
 HistoryList
-IncomeExpense
-AddTransactions
 TransactionType
-src	src/components/header	src/components/balance	src/components/history	src/utils	src/components/income-expense	src/components/add-transactions	
-1		
+IncomeExpenseCmp
+AddTransactionCmp
+src	src/components/header-cmp	src/components/balance-cmp	src/components/history-cmp	src/utils	src/components/income-expense-cmp	src/components/add-transaction-cmp	
+1		
 0

@@ -4,32 +4,32 @@ rule astj
   command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe  -bs-v 10.0.1 -bs-jsx 3  -absname -bs-ast -o $out $i
 o src/App.ast : astj ../../src/App.res
 rule deps
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash 8b23d746a18cc530be9e35af73099a4e $in
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash 7d3015671445057330d5ddf90f8920d9 $in
   restat = 1
 o src/App.d : deps src/App.ast
 rule mij
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe -I src/utils -I src/components/income-expense -I src/components/balance -I src/components/history -I src/components/add-transactions -I src/components/header -I src/components -I src -I /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/@rescript/react/lib/ocaml   -bs-package-name expense-tracker-rescript -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe -I src/utils -I src/components/history-cmp -I src/components/balance-cmp -I src/components/header-cmp -I src/components/income-expense-cmp -I src/components/add-transaction-cmp -I src/components -I src -I /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/@rescript/react/lib/ocaml   -bs-package-name expense-tracker-rescript -bs-package-output es6:$in_d:.bs.js -bs-v $g_finger $i
   dyndep = 1
   restat = 1
 o src/App.cmj src/App.cmi ../../src/App.bs.js : mij src/App.ast
-o src/components/header/Header.ast : astj ../../src/components/header/Header.res
-o src/components/header/Header.d : deps src/components/header/Header.ast
-o src/components/header/Header.cmj src/components/header/Header.cmi ../../src/components/header/Header.bs.js : mij src/components/header/Header.ast
-o src/components/add-transactions/AddTransactions.ast : astj ../../src/components/add-transactions/AddTransactions.res
-o src/components/add-transactions/AddTransactions.d : deps src/components/add-transactions/AddTransactions.ast
-o src/components/add-transactions/AddTransactions.cmj src/components/add-transactions/AddTransactions.cmi ../../src/components/add-transactions/AddTransactions.bs.js : mij src/components/add-transactions/AddTransactions.ast
-o src/components/history/History.ast : astj ../../src/components/history/History.res
-o src/components/history/History.d : deps src/components/history/History.ast
-o src/components/history/History.cmj src/components/history/History.cmi ../../src/components/history/History.bs.js : mij src/components/history/History.ast
-o src/components/history/HistoryList.ast : astj ../../src/components/history/HistoryList.res
-o src/components/history/HistoryList.d : deps src/components/history/HistoryList.ast
-o src/components/history/HistoryList.cmj src/components/history/HistoryList.cmi ../../src/components/history/HistoryList.bs.js : mij src/components/history/HistoryList.ast
-o src/components/balance/Balance.ast : astj ../../src/components/balance/Balance.res
-o src/components/balance/Balance.d : deps src/components/balance/Balance.ast
-o src/components/balance/Balance.cmj src/components/balance/Balance.cmi ../../src/components/balance/Balance.bs.js : mij src/components/balance/Balance.ast
-o src/components/income-expense/IncomeExpense.ast : astj ../../src/components/income-expense/IncomeExpense.res
-o src/components/income-expense/IncomeExpense.d : deps src/components/income-expense/IncomeExpense.ast
-o src/components/income-expense/IncomeExpense.cmj src/components/income-expense/IncomeExpense.cmi ../../src/components/income-expense/IncomeExpense.bs.js : mij src/components/income-expense/IncomeExpense.ast
+o src/components/add-transaction-cmp/AddTransactionCmp.ast : astj ../../src/components/add-transaction-cmp/AddTransactionCmp.res
+o src/components/add-transaction-cmp/AddTransactionCmp.d : deps src/components/add-transaction-cmp/AddTransactionCmp.ast
+o src/components/add-transaction-cmp/AddTransactionCmp.cmj src/components/add-transaction-cmp/AddTransactionCmp.cmi ../../src/components/add-transaction-cmp/AddTransactionCmp.bs.js : mij src/components/add-transaction-cmp/AddTransactionCmp.ast
+o src/components/income-expense-cmp/IncomeExpenseCmp.ast : astj ../../src/components/income-expense-cmp/IncomeExpenseCmp.res
+o src/components/income-expense-cmp/IncomeExpenseCmp.d : deps src/components/income-expense-cmp/IncomeExpenseCmp.ast
+o src/components/income-expense-cmp/IncomeExpenseCmp.cmj src/components/income-expense-cmp/IncomeExpenseCmp.cmi ../../src/components/income-expense-cmp/IncomeExpenseCmp.bs.js : mij src/components/income-expense-cmp/IncomeExpenseCmp.ast
+o src/components/header-cmp/HeaderCmp.ast : astj ../../src/components/header-cmp/HeaderCmp.res
+o src/components/header-cmp/HeaderCmp.d : deps src/components/header-cmp/HeaderCmp.ast
+o src/components/header-cmp/HeaderCmp.cmj src/components/header-cmp/HeaderCmp.cmi ../../src/components/header-cmp/HeaderCmp.bs.js : mij src/components/header-cmp/HeaderCmp.ast
+o src/components/balance-cmp/BalanceCmp.ast : astj ../../src/components/balance-cmp/BalanceCmp.res
+o src/components/balance-cmp/BalanceCmp.d : deps src/components/balance-cmp/BalanceCmp.ast
+o src/components/balance-cmp/BalanceCmp.cmj src/components/balance-cmp/BalanceCmp.cmi ../../src/components/balance-cmp/BalanceCmp.bs.js : mij src/components/balance-cmp/BalanceCmp.ast
+o src/components/history-cmp/HistoryCmp.ast : astj ../../src/components/history-cmp/HistoryCmp.res
+o src/components/history-cmp/HistoryCmp.d : deps src/components/history-cmp/HistoryCmp.ast
+o src/components/history-cmp/HistoryCmp.cmj src/components/history-cmp/HistoryCmp.cmi ../../src/components/history-cmp/HistoryCmp.bs.js : mij src/components/history-cmp/HistoryCmp.ast
+o src/components/history-cmp/HistoryList.ast : astj ../../src/components/history-cmp/HistoryList.res
+o src/components/history-cmp/HistoryList.d : deps src/components/history-cmp/HistoryList.ast
+o src/components/history-cmp/HistoryList.cmj src/components/history-cmp/HistoryList.cmi ../../src/components/history-cmp/HistoryList.bs.js : mij src/components/history-cmp/HistoryList.ast
 o src/utils/AmountUtils.ast : astj ../../src/utils/AmountUtils.res
 o src/utils/AmountUtils.d : deps src/utils/AmountUtils.ast
 o src/utils/AmountUtils.cmj src/utils/AmountUtils.cmi ../../src/utils/AmountUtils.bs.js : mij src/utils/AmountUtils.ast

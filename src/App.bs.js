@@ -2,12 +2,12 @@
 
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as React from "react";
-import * as Header from "./components/header/Header.bs.js";
-import * as Balance from "./components/balance/Balance.bs.js";
-import * as $$History from "./components/history/History.bs.js";
 import * as Js_array from "rescript/lib/es6/js_array.js";
-import * as IncomeExpense from "./components/income-expense/IncomeExpense.bs.js";
-import * as AddTransactions from "./components/add-transactions/AddTransactions.bs.js";
+import * as HeaderCmp from "./components/header-cmp/HeaderCmp.bs.js";
+import * as BalanceCmp from "./components/balance-cmp/BalanceCmp.bs.js";
+import * as HistoryCmp from "./components/history-cmp/HistoryCmp.bs.js";
+import * as IncomeExpenseCmp from "./components/income-expense-cmp/IncomeExpenseCmp.bs.js";
+import * as AddTransactionCmp from "./components/add-transaction-cmp/AddTransactionCmp.bs.js";
 
 import './App.css'
 ;
@@ -45,13 +45,13 @@ function App(Props) {
   };
   return React.createElement("div", {
               className: "main-container"
-            }, React.createElement(Header.make, {}), React.createElement(Balance.make, {
+            }, React.createElement(HeaderCmp.make, {}), React.createElement(BalanceCmp.make, {
                   transactions: transactions
-                }), React.createElement(IncomeExpense.make, {
+                }), React.createElement(IncomeExpenseCmp.make, {
                   transactions: transactions
-                }), React.createElement($$History.make, {
+                }), React.createElement(HistoryCmp.make, {
                   transactions: transactions
-                }), React.createElement(AddTransactions.make, {
+                }), React.createElement(AddTransactionCmp.make, {
                   submitHandler: addTransaction
                 }));
 }

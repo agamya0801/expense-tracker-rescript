@@ -22,10 +22,10 @@ let make = () => {
     }
 
     <div className="main-container">
-        <Header />
-        <Balance transactions/>
-        <IncomeExpense transactions />
-        <History transactions/>
-        <AddTransactions submitHandler=addTransaction />
+        <HeaderCmp />
+        <BalanceCmp transactions />
+        <IncomeExpenseCmp transactions />
+        <HistoryCmp transactions />
+        <AddTransactionCmp submitHandler=addTransaction />
     </div>
 }
