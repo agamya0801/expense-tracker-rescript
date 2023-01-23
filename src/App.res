@@ -2,7 +2,7 @@
 
 @scope("JSON") @val
 external parseIntoMyData: string => array<TransactionType.t> = "parse"
-let initialTransaction: array<TransactionType.t> = [{text: "", amount: ""}]
+let initialTransaction: array<TransactionType.t> = [{text: "", amount: 0.}]
 
 @react.component
 let make = () => {
@@ -14,11 +14,15 @@ let make = () => {
         None
     }, [transactions])
 
-    let addTransaction = (~text: string, ~amount: string) => {
-        let prevTransactionArray = Js.Array.copy(transactions)
-        let latestTransaction: array<TransactionType.t> = [{text: text, amount: amount}]
-        let newTransactionArray = Js.Array.concat(prevTransactionArray, latestTransaction)
-        setTransactions(_ => newTransactionArray)
+    let addTransaction = (~text: string, ~amount: float) => {
+        if(text != "" && amount != 0.) {
+            let prevTransactionArray = Js.Array.copy(transactions)
+            let latestTransaction: array<TransactionType.t> = [{text: text, amount: amount}]
+            let newTransactionArray = Js.Array.concat(prevTransactionArray, latestTransaction)
+            setTransactions(_ => newTransactionArray)
+        } else {
+            AlertWindow.alert("Invalid Input")
+        }
     }
 
     <div className="main-container">

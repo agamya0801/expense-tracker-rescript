@@ -31,6 +31,10 @@ o HistoryList.cmi : cp ../bs/src/components/history-cmp/HistoryList.cmi
 o HistoryList.cmj : cp ../bs/src/components/history-cmp/HistoryList.cmj
 o HistoryList.cmt : cp ../bs/src/components/history-cmp/HistoryList.cmt
 o HistoryList.res : cp ../../src/components/history-cmp/HistoryList.res
+o AlertWindow.cmi : cp ../bs/src/utils/AlertWindow.cmi
+o AlertWindow.cmj : cp ../bs/src/utils/AlertWindow.cmj
+o AlertWindow.cmt : cp ../bs/src/utils/AlertWindow.cmt
+o AlertWindow.res : cp ../../src/utils/AlertWindow.res
 o AmountUtils.cmi : cp ../bs/src/utils/AmountUtils.cmi
 o AmountUtils.cmj : cp ../bs/src/utils/AmountUtils.cmj
 o AmountUtils.cmt : cp ../bs/src/utils/AmountUtils.cmt
@@ -39,4 +43,4 @@ o TransactionType.cmi : cp ../bs/src/utils/TransactionType.cmi
 o TransactionType.cmj : cp ../bs/src/utils/TransactionType.cmj
 o TransactionType.cmt : cp ../bs/src/utils/TransactionType.cmt
 o TransactionType.res : cp ../../src/utils/TransactionType.res
-build install.stamp : touch App.cmi App.cmj AddTransactionCmp.cmi AddTransactionCmp.cmj IncomeExpenseCmp.cmi IncomeExpenseCmp.cmj HeaderCmp.cmi HeaderCmp.cmj BalanceCmp.cmi BalanceCmp.cmj HistoryCmp.cmi HistoryCmp.cmj HistoryList.cmi HistoryList.cmj AmountUtils.cmi AmountUtils.cmj TransactionType.cmi TransactionType.cmj 
+build install.stamp : touch App.cmi App.cmj AddTransactionCmp.cmi AddTransactionCmp.cmj IncomeExpenseCmp.cmi IncomeExpenseCmp.cmj HeaderCmp.cmi HeaderCmp.cmj BalanceCmp.cmi BalanceCmp.cmj HistoryCmp.cmi HistoryCmp.cmj HistoryList.cmi HistoryList.cmj AlertWindow.cmi AlertWindow.cmj AmountUtils.cmi AmountUtils.cmj TransactionType.cmi TransactionType.cmj 

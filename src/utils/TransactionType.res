@@ -1,4 +1,4 @@
 type t = {
     text: string,
-    amount: string
+    amount: float
 }

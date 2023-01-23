@@ -2,7 +2,7 @@
 
 
   @react.component
-  let make = (~submitHandler: (~text: string, ~amount: string) => unit) => {
+  let make = (~submitHandler: (~text: string, ~amount: float) => unit) => {
     let (text, setText) = React.useState(_ => "")
     let (amount, setAmount) = React.useState(_ => "")
 
@@ -18,6 +18,11 @@
 
     let handleSubmit = event => {
       ReactEvent.Synthetic.preventDefault(event)
+      let amount = Belt.Float.fromString(amount);
+      let amount = switch(amount) {
+        | None => 0.
+        | Some(v) => v
+      }
       submitHandler(~text, ~amount)
       setText(_ => "")
       setAmount(_ => "")
@@ -45,7 +50,7 @@
           className="input-field"
           type_="number"
           placeholder="Enter Amount"
-          value={amount}
+          value=amount
           onChange={handleAmountChange}
         />
         <button className="add-txn-button" type_="submit" onClick={handleSubmit}>{"Add Transaction" -> React.string}</button>

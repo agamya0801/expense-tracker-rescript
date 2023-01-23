@@ -7,34 +7,27 @@ import * as Belt_Float from "rescript/lib/es6/belt_Float.js";
 
 function calculateBalance(transactions) {
   return Belt_Array.reduce(transactions, 0.0, (function (acc, value) {
-                var v = Belt_Float.fromString(value.amount);
-                return acc + (
-                        v !== undefined ? v : 0
-                      );
+                return acc + value.amount;
               }));
 }
 
 function calculateIncome(transactions) {
   return Belt_Array.reduce(transactions, 0.0, (function (acc, value) {
-                if (!Caml_obj.greaterequal(Belt_Float.fromString(value.amount), 0.0)) {
+                if (value.amount >= 0) {
+                  return acc + value.amount;
+                } else {
                   return acc + 0.0;
                 }
-                var v = Belt_Float.fromString(value.amount);
-                return acc + (
-                        v !== undefined ? v : 0
-                      );
               }));
 }
 
 function calculateExpense(transactions) {
   return Belt_Array.reduce(transactions, 0.0, (function (acc, value) {
-                if (!Caml_obj.lessthan(Belt_Float.fromString(value.amount), 0.0)) {
+                if (value.amount < 0) {
+                  return acc + value.amount;
+                } else {
                   return acc + 0.0;
                 }
-                var v = Belt_Float.fromString(value.amount);
-                return acc + (
-                        v !== undefined ? v : 0
-                      );
               }));
 }
 
@@ -58,7 +51,7 @@ function round(amount, isRoundedAmount) {
   if (isRoundedAmount) {
     return Js_string.concat("K", (amount / 10000000.0).toFixed(2));
   } else {
-    return amount.toFixed(2);
+    return String(amount);
   }
 }
 
