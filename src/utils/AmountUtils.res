@@ -2,7 +2,7 @@ let calculateBalance = (~transactions: array<TransactionType.t>) => {
     Belt.Array.reduce(
         transactions, 
         0.0, 
-        (acc, value) => acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v }
+        (acc, value) => acc +. value.amount
     )
 }
 
@@ -10,7 +10,7 @@ let calculateIncome = (~transactions: array<TransactionType.t>) => {
     Belt.Array.reduce(
         transactions, 
         0.0, 
-        (acc, value) => (Belt.Float.fromString(value.amount) >= Some(0.0) ? acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v } : acc +. 0.0)
+        (acc, value) => (value.amount >= 0. ? acc +. value.amount : acc +. 0.0)
     )
 }
 
@@ -18,7 +18,7 @@ let calculateExpense = (~transactions: array<TransactionType.t>) => {
     Belt.Array.reduce(
         transactions, 
         0.0, 
-        (acc, value) => (Belt.Float.fromString(value.amount) < Some(0.0) ? acc +. switch Belt.Float.fromString(value.amount) { | None => 0. | Some(v) => v } : acc +. 0.0)
+        (acc, value) => (value.amount < 0. ? acc +. value.amount : acc +. 0.0)
     )
 }
 
@@ -31,7 +31,7 @@ let isRounded = (~amount) => {
 }
 
 let round = (~amount, ~isRoundedAmount) => {
-    isRoundedAmount ? Js.String.concat("K", Js.Float.toFixedWithPrecision((amount /. 10000000.0), ~digits=2)) : Js.Float.toFixedWithPrecision(amount, ~digits=2)
+    isRoundedAmount ? Js.String.concat("K", Js.Float.toFixedWithPrecision((amount /. 10000000.0), ~digits=2)) : Belt.Float.toString(amount)
 }
 
 let refactor = (~amount) => {

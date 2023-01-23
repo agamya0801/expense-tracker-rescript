@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import * as Js_string from "rescript/lib/es6/js_string.js";
-import * as Belt_Float from "rescript/lib/es6/belt_Float.js";
 import * as AmountUtils from "../../utils/AmountUtils.bs.js";
 import * as HistoryList from "./HistoryList.bs.js";
 
@@ -13,7 +12,7 @@ function HistoryCmp(Props) {
   var transactions = Props.transactions;
   var notEmpty = function (x) {
     if (x.text !== "") {
-      return x.amount !== "";
+      return x.amount !== 0;
     } else {
       return false;
     }
@@ -28,13 +27,11 @@ function HistoryCmp(Props) {
                 }), React.createElement("div", {
                   className: "list"
                 }, finalArray.map(function (ele) {
-                      var netAmount = Belt_Float.fromString(ele.amount);
-                      var netAmount$1 = netAmount !== undefined ? netAmount : 0.0;
-                      var sign = AmountUtils.check(netAmount$1);
-                      var stripColor = netAmount$1 >= 0.0 ? "positive" : "negative";
-                      var isRoundedAmount = AmountUtils.isRounded(netAmount$1);
-                      var netAmount$2 = AmountUtils.round(netAmount$1, isRoundedAmount);
-                      var newAmount = AmountUtils.refactor(netAmount$2);
+                      var sign = AmountUtils.check(ele.amount);
+                      var stripColor = ele.amount >= 0.0 ? "positive" : "negative";
+                      var isRoundedAmount = AmountUtils.isRounded(ele.amount);
+                      var netAmount = AmountUtils.round(ele.amount, isRoundedAmount);
+                      var newAmount = AmountUtils.refactor(netAmount);
                       var newText = ele.text.length > 16 ? Js_string.concat("...", Js_string.substrAtMost(0, 16, ele.text)) : ele.text;
                       return React.createElement("div", {
                                   className: "list-items"

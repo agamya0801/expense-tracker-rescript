@@ -2,6 +2,7 @@
 
 import * as Curry from "rescript/lib/es6/curry.js";
 import * as React from "react";
+import * as Belt_Float from "rescript/lib/es6/belt_Float.js";
 
 import './AddTransactionCmp.css'
 ;
@@ -32,7 +33,9 @@ function AddTransactionCmp(Props) {
   };
   var handleSubmit = function ($$event) {
     $$event.preventDefault();
-    Curry._2(submitHandler, text, amount);
+    var amount$1 = Belt_Float.fromString(amount);
+    var amount$2 = amount$1 !== undefined ? amount$1 : 0;
+    Curry._2(submitHandler, text, amount$2);
     Curry._1(setText, (function (param) {
             return "";
           }));

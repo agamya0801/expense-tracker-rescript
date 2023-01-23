@@ -10,7 +10,6 @@ function HistoryList(Props) {
   var amount = Props.amount;
   var sign = Props.sign;
   var stripColor = Props.stripColor;
-  console.log(text);
   return React.createElement("div", {
               className: "list-items-content"
             }, React.createElement("p", {

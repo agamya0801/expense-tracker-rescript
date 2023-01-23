@@ -14,7 +14,7 @@ import './App.css'
 
 var initialTransaction = [{
     text: "",
-    amount: ""
+    amount: 0
   }];
 
 function App(Props) {
@@ -33,15 +33,18 @@ function App(Props) {
           sessionStorage.setItem("storedTxn", v !== undefined ? v : "");
         }), [transactions]);
   var addTransaction = function (text, amount) {
-    var prevTransactionArray = transactions.slice();
-    var latestTransaction = [{
-        text: text,
-        amount: amount
-      }];
-    var newTransactionArray = Js_array.concat(prevTransactionArray, latestTransaction);
-    Curry._1(setTransactions, (function (param) {
-            return newTransactionArray;
-          }));
+    if (text !== "" && amount !== 0) {
+      var prevTransactionArray = transactions.slice();
+      var latestTransaction = [{
+          text: text,
+          amount: amount
+        }];
+      var newTransactionArray = Js_array.concat(prevTransactionArray, latestTransaction);
+      return Curry._1(setTransactions, (function (param) {
+                    return newTransactionArray;
+                  }));
+    }
+    window.alert("Invalid Input");
   };
   return React.createElement("div", {
               className: "main-container"

@@ -5,7 +5,7 @@ rule astj
   command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsc.exe  -bs-v 10.0.1,1674202841. -ppx /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/re-formality/ppx -bs-jsx 3  -absname -bs-ast -o $out $i
 o src/App.ast : astj ../../src/App.res
 rule deps
-  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash 7d3015671445057330d5ddf90f8920d9 $in
+  command = /Users/vrishabh/Projects/expense-tracker-rescript/node_modules/rescript/darwin/bsb_helper.exe -hash d7447d360eac47a104051041a2786ec5 $in
   restat = 1
 o src/App.d : deps src/App.ast
 rule mij
@@ -31,6 +31,9 @@ o src/components/history-cmp/HistoryCmp.cmj src/components/history-cmp/HistoryCm
 o src/components/history-cmp/HistoryList.ast : astj ../../src/components/history-cmp/HistoryList.res
 o src/components/history-cmp/HistoryList.d : deps src/components/history-cmp/HistoryList.ast
 o src/components/history-cmp/HistoryList.cmj src/components/history-cmp/HistoryList.cmi ../../src/components/history-cmp/HistoryList.bs.js : mij src/components/history-cmp/HistoryList.ast
+o src/utils/AlertWindow.ast : astj ../../src/utils/AlertWindow.res
+o src/utils/AlertWindow.d : deps src/utils/AlertWindow.ast
+o src/utils/AlertWindow.cmj src/utils/AlertWindow.cmi ../../src/utils/AlertWindow.bs.js : mij src/utils/AlertWindow.ast
 o src/utils/AmountUtils.ast : astj ../../src/utils/AmountUtils.res
 o src/utils/AmountUtils.d : deps src/utils/AmountUtils.ast
 o src/utils/AmountUtils.cmj src/utils/AmountUtils.cmi ../../src/utils/AmountUtils.bs.js : mij src/utils/AmountUtils.ast
