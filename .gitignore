@@ -1,1 +1,17 @@
 node_modules
+public/index.html
+public/build-manifest.json
+
+.DS_Store
+npm-debug.log
+/lib/bs/
+/bundleOutput/
+*.bundle.js
+*.env
+package.lock
+
+lib
+.merlin
+.bsb.lock
+lib/*
+*.bs.js

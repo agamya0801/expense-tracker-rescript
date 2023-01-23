@@ -6,7 +6,7 @@ let initialTransaction: array<TransactionType.t> = [{text: "", amount: ""}]
 
 @react.component
 let make = () => {
-    let storedTxn = Dom.Storage2.getItem(Dom.Storage2.sessionStorage, "storedTxn") 
+    let storedTxn = Dom.Storage2.getItem(Dom.Storage2.sessionStorage, "storedTxn")
     let (transactions: array<TransactionType.t>, setTransactions) = React.useState(_ => switch storedTxn{ | None => initialTransaction | Some(value: string) => parseIntoMyData(value) })
 
     React.useEffect1(() => {
