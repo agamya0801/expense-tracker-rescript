@@ -1,11 +1,14 @@
-7
+10
 App
-Test
-Header
-Balance
-History
-IncomeExpense
-AddTransactions
-src	src/components/Header	src/components/Balance	src/components/History	src/components/IncomeExpense	src/components/AddTransactions	
-1	
+HeaderCmp
+BalanceCmp
+HistoryCmp
+AlertWindow
+AmountUtils
+HistoryList
+TransactionType
+IncomeExpenseCmp
+AddTransactionCmp
+src	src/components/header-cmp	src/components/balance-cmp	src/components/history-cmp	src/utils	src/components/income-expense-cmp	src/components/add-transaction-cmp	
+1			
 0
