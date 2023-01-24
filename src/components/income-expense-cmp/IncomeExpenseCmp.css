@@ -36,3 +36,11 @@
 .income-title, .expense-title, .income-amount, .expense-amount{
     margin: 0;
 }
+
+.income-amount{
+    color: green;
+}
+
+.expense-amount{
+    color: red;
+}

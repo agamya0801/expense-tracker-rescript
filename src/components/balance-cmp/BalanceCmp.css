@@ -13,3 +13,11 @@
     font-size: 1.4rem;
     font-weight: 600;
 }
+
+.positive-text{
+    color: green;
+}
+
+.negative-text{
+    color: red;
+}
