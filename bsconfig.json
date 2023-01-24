@@ -14,6 +14,12 @@
   ],
   "reason": {"react-jsx": 3},
   "jsx": { "version": 4, "mode": "classic" },
-  "bs-dependencies": ["@rescript/react"],
-  "suffix": ".bs.js"
+  "bs-dependencies": [
+    "@rescript/react", 
+    "re-formality"
+  ],
+  "suffix": ".bs.js",
+  "ppx-flags": [
+    "re-formality/ppx"
+  ]
 }
