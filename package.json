@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "res:build": "rescript",
     "res:dev": "rescript build -w",
-    "res:clean": "rescript clean -with-deps"
+    "res:clean": "rescript clean "
   },
   "eslintConfig": {
     "extends": [
