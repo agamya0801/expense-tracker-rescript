@@ -1,27 +1,25 @@
 %%raw("import './App.css'")
 
-@scope("JSON") @val
-external parseIntoMyData: string => array<TransactionType.t> = "parse"
-let initialTransaction: array<TransactionType.t> = [{text: "", amount: 0.}]
+let initialTransaction: array<Transaction.t> = []
 
 @react.component
 let make = () => {
-    let storedTxn = Dom.Storage2.getItem(Dom.Storage2.sessionStorage, "storedTxn")
-    let (transactions: array<TransactionType.t>, setTransactions) = React.useState(_ => switch storedTxn{ | None => initialTransaction | Some(value: string) => parseIntoMyData(value) })
+    let storedTransactions = Dom.Storage2.getItem(Dom.Storage2.sessionStorage, "storedTransactions")
+    let (transactions: array<Transaction.t>, setTransactions) = React.useState(_ => TransactionUtils.getInitialTransaction(storedTransactions, initialTransaction))
+    let (inputValidity: bool, setInputValidity) = React.useState(_ => true)
 
     React.useEffect1(() => {
-        Dom.Storage2.setItem(Dom.Storage2.sessionStorage, "storedTxn", switch Js.Json.stringifyAny(transactions: array<TransactionType.t>) { | None => "" | Some(v) => v })
+        Dom.Storage2.setItem(Dom.Storage2.sessionStorage, "storedTransactions", switch Js.Json.stringifyAny(transactions: array<Transaction.t>) { | None => "" | Some(v) => v })
         None
     }, [transactions])
 
     let addTransaction = (~text: string, ~amount: float) => {
         if(text != "" && amount != 0.) {
-            let prevTransactionArray = Js.Array.copy(transactions)
-            let latestTransaction: array<TransactionType.t> = [{text: text, amount: amount}]
-            let newTransactionArray = Js.Array.concat(prevTransactionArray, latestTransaction)
+            setInputValidity(_ => true)
+            let newTransactionArray = Js.Array.concat(transactions, [{text: text, amount: amount}])
             setTransactions(_ => newTransactionArray)
         } else {
-            AlertWindow.alert("Invalid Input")
+            setInputValidity(_ => false)
         }
     }
 
@@ -30,6 +28,6 @@ let make = () => {
         <BalanceCmp transactions />
         <IncomeExpenseCmp transactions />
         <HistoryCmp transactions />
-        <AddTransactionCmp submitHandler=addTransaction />
+        <AddTransactionCmp submitHandler=addTransaction inputValidity=inputValidity/>
     </div>
 }

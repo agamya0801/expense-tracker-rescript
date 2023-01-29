@@ -2,7 +2,7 @@
 
 
   @react.component
-  let make = (~submitHandler: (~text: string, ~amount: float) => unit) => {
+  let make = (~submitHandler: (~text: string, ~amount: float) => unit, ~inputValidity: bool) => {
     let (text, setText) = React.useState(_ => "")
     let (amount, setAmount) = React.useState(_ => "")
 
@@ -53,6 +53,7 @@
           value=amount
           onChange={handleAmountChange}
         />
+        {inputValidity == false ?  <ErrorMessage /> : <div/>}
         <button className="add-txn-button" type_="submit" onClick={handleSubmit}>{"Add Transaction" -> React.string}</button>
       </form>
     </div>
