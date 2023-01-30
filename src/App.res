@@ -4,12 +4,12 @@ let initialTransaction: array<Transaction.t> = []
 
 @react.component
 let make = () => {
-    let storedTransactions = Dom.Storage2.getItem(Dom.Storage2.sessionStorage, "storedTransactions")
-    let (transactions: array<Transaction.t>, setTransactions) = React.useState(_ => TransactionUtils.getInitialTransaction(storedTransactions, initialTransaction))
+    open TransactionUtils
+    let (transactions: array<Transaction.t>, setTransactions) = React.useState(_ => getInitialTransaction(initialTransaction))
     let (inputValidity: bool, setInputValidity) = React.useState(_ => true)
 
     React.useEffect1(() => {
-        Dom.Storage2.setItem(Dom.Storage2.sessionStorage, "storedTransactions", switch Js.Json.stringifyAny(transactions: array<Transaction.t>) { | None => "" | Some(v) => v })
+        setLatestTransactions(transactions)
         None
     }, [transactions])
 
