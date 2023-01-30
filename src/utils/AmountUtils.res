@@ -1,4 +1,4 @@
-let calculateBalance = (~transactions: array<TransactionType.t>) => {
+let calculateBalance = (~transactions: array<Transaction.t>) => {
     Belt.Array.reduce(
         transactions, 
         0.0, 
@@ -6,34 +6,31 @@ let calculateBalance = (~transactions: array<TransactionType.t>) => {
     )
 }
 
-let calculateIncome = (~transactions: array<TransactionType.t>) => {
+let calculateIncome = (~transactions: array<Transaction.t>) => {
     Belt.Array.reduce(
         transactions, 
         0.0, 
-        (acc, value) => (value.amount >= 0. ? acc +. value.amount : acc +. 0.0)
+        (acc, value) => (value.amount >= 0. ? acc +. value.amount : acc)
     )
 }
 
-let calculateExpense = (~transactions: array<TransactionType.t>) => {
+let calculateExpense = (~transactions: array<Transaction.t>) => {
     Belt.Array.reduce(
         transactions, 
         0.0, 
-        (acc, value) => (value.amount < 0. ? acc +. value.amount : acc +. 0.0)
+        (acc, value) => (value.amount < 0. ? acc +. value.amount : acc)
     )
 }
 
-let check = (~amount) => {
-    amount >= 0. ? "" : "-"
-} 
-
-let isRounded = (~amount) => {
-    amount <= -10000000.0 || amount >= 10000000.0 ? true: false
+let getAmountString = (amount:float) => {
+    let sign:string = amount >= 0. ? "" : "-"
+    let amount = Js.Math.abs_float(amount)
+    let amountString:string = amount >= 10000000.0 ? 
+                Js.String.concat("K", Js.Float.toFixedWithPrecision((amount /. 10000000.0), ~digits=2))
+                : Belt.Float.toString(amount)
+    `${sign}₹${amountString}`
 }
 
-let round = (~amount, ~isRoundedAmount) => {
-    isRoundedAmount ? Js.String.concat("K", Js.Float.toFixedWithPrecision((amount /. 10000000.0), ~digits=2)) : Belt.Float.toString(amount)
-}
-
-let refactor = (~amount) => {
-    Belt.Float.fromString(amount) < Some(0.0) ? Js.String.sliceToEnd(~from=1, amount) : amount
+let getAmountColourClassName = (amount:float) => {
+    amount >= 0.0 ? "positive-text" : "negative-text"
 }
