@@ -22,17 +22,13 @@ let calculateExpense = (~transactions: array<Transaction.t>) => {
     )
 }
 
-let getSign = (~amount:float) => {
-    amount >= 0. ? "" : "-"
-} 
-
-let getShortenedAmount = (~amount:float) => {
+let getAmountString = (amount:float) => {
+    let sign:string = amount >= 0. ? "" : "-"
     let amount = Js.Math.abs_float(amount)
-    amount >= 10000000.0 ? Js.String.concat("K", Js.Float.toFixedWithPrecision((amount /. 10000000.0), ~digits=2)) : Belt.Float.toString(amount)
-}
-
-let getAmountString = (amount:string) => {
-    `\u20B9${amount}`
+    let amountString:string = amount >= 10000000.0 ? 
+                Js.String.concat("K", Js.Float.toFixedWithPrecision((amount /. 10000000.0), ~digits=2))
+                : Belt.Float.toString(amount)
+    `${sign}₹${amountString}`
 }
 
 let getAmountColourClassName = (amount:float) => {
