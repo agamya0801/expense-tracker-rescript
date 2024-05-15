@@ -1,5 +1,8 @@
 name : Testing - Pagespeed Insights
-on: [workflow_dispatch] 
+on: 
+  push:
+    branches:
+      - main
 jobs:
   fetch_pagespeed:
     runs-on: ubuntu-latest
