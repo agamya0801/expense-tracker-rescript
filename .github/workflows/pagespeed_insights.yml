@@ -3,22 +3,43 @@ on: [workflow_dispatch]
 jobs:
   fetch_pagespeed:
     runs-on: ubuntu-latest
+    
+    outputs:
+      mobile-score: ${{ steps.pagespeed-mobile.outputs.mobile-score }}
+      desktop-score: ${{ steps.pagespeed-desktop.outputs.desktop-score }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run PageSpeed Insights API
-        id: pagespeed
+      - name: Run PageSpeed Insights API for Mobile
+        id: pagespeed-mobile
         env:
           API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
         run: |
-          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://porter.in&key=${API_KEY}" | jq '.lighthouseResult.categories.performance.score * 100')
-          echo "::set-output name=score::$score"
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://porter.in&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
+          echo "::set-output name=mobile-score::$score"
 
-      - name: Check performance score
+      - name: Run PageSpeed Insights API for Desktop
+        id: pagespeed-desktop
+        env:
+          API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
         run: |
-          score=${{ steps.pagespeed.outputs.score }}
-          if (( $(echo "$score < 50" | bc -l) )); then
-            echo "Performance score is below the acceptable threshold (50)."
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://porter.in&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
+          echo "::set-output name=desktop-score::$score"
+
+      - name: Check mobile performance score
+        run: |
+          mobileScore=${{ steps.pagespeed-mobile.outputs.mobile-score }}
+          if (( $(echo "$mobileScore < 90" | bc -l) )); then
+            echo "Mobile performance score is below the acceptable threshold (90)."
+            exit 1
+          fi
+
+      - name: Check desktop performance score
+        run: |
+          desktopScore=${{ steps.pagespeed-desktop.outputs.desktop-score }}
+          if (( $(echo "$desktopScore < 90" | bc -l) )); then
+            echo "Desktop performance score is below the acceptable threshold (90)."
             exit 1
           fi
