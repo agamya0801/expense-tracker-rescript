@@ -1,0 +1,24 @@
+name : Testing - Pagespeed Insights
+on: [workflow_dispatch] 
+jobs:
+  fetch_pagespeed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run PageSpeed Insights API
+        id: pagespeed
+        env:
+          API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
+        run: |
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://porter.in&key=${API_KEY}" | jq '.lighthouseResult.categories.performance.score * 100')
+          echo "::set-output name=score::$score"
+
+      - name: Check performance score
+        run: |
+          score=${{ steps.pagespeed.outputs.score }}
+          if (( $(echo "$score < 50" | bc -l) )); then
+            echo "Performance score is below the acceptable threshold (50)."
+            exit 1
+          fi
