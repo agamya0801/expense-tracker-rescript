@@ -63,7 +63,7 @@ jobs:
       - name: Set commit status to success
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
@@ -73,7 +73,7 @@ jobs:
       - name: Set commit status to failure
         if: failure()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
