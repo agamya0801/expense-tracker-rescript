@@ -45,6 +45,22 @@ jobs:
             exit 1
           fi
 
-      - name: Set success status
-        if: always()
-        run: exit 0
+      - name: Set commit status to success
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMIT_SHA=${{ github.sha }}
+          curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+            -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "pagespeed-check"}' \
+            https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
+
+      - name: Set commit status to failure
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMIT_SHA=${{ github.sha }}
+          curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+            -d '{"state": "failure", "target_url": "", "description": "PageSpeed Check Failed", "context": "pagespeed-check"}' \
+            https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
