@@ -21,13 +21,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Run PageSpeed Insights API for Mobile
         id: pagespeed-mobile
         env:
           API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
         run: |
-          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://porter.in&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ github.event.inputs.staging_url }}&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=mobile-score::$score"
 
       - name: Run PageSpeed Insights API for Desktop
@@ -35,7 +37,7 @@ jobs:
         env:
           API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
         run: |
-          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=https://porter.in&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ github.event.inputs.staging_url }}&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=desktop-score::$score"
 
       - name: Check mobile performance score
@@ -59,7 +61,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          COMMIT_SHA=${{ github.sha }}
+          COMMIT_SHA=$(jq -r '.head_commit.id' <<< "$GITHUB_EVENT")
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "pagespeed-check"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
@@ -69,7 +71,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          COMMIT_SHA=${{ github.sha }}
+          COMMIT_SHA=$(jq -r '.head_commit.id' <<< "$GITHUB_EVENT")
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "failure", "target_url": "", "description": "PageSpeed Check Failed", "context": "pagespeed-check"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
