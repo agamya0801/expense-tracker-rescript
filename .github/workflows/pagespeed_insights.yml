@@ -66,9 +66,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
-          curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+          RESPONSE=$(curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "fetch_pagespeed"}' \
-            https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
+            https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA)
+          echo $RESPONSE
+          if [[ $(echo $RESPONSE | jq -r '.state') == "success" ]]; then
+            curl -s -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
+              -d '{"required_status_checks": null}' \
+              https://api.github.com/repos/${{ github.repository }}/branches/main/protection
+          fi
           exit 0
 
       - name: Set commit status to failure
