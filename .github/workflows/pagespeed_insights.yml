@@ -74,7 +74,6 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA)
           echo $RESPONSE
           echo "::set-output name=response::$(echo $RESPONSE | jq -r '.state')"
-          exit 0
 
       - name: Enable branch merging if commit status is success
         if: steps.set-status.outputs.response == 'success'
@@ -90,6 +89,7 @@ jobs:
               "required_pull_request_reviews": null,
               "restrictions": null
             }'
+          exit 0
 
       - name: Set commit status to failure
         if: failure()
