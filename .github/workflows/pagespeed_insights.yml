@@ -64,6 +64,7 @@ jobs:
           fi
 
       - name: Set commit status to success
+        id: set-status
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
