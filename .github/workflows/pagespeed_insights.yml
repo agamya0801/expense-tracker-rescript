@@ -69,7 +69,7 @@ jobs:
           RESPONSE=$(curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "fetch_pagespeed"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA)
-          echo $RESPONSE
+          echo "res=" $RESPONSE
           if [[ $(echo $RESPONSE | jq -r '.state') == "success" ]]; then
             curl -s -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
               -d '{"required_status_checks": null}' \
