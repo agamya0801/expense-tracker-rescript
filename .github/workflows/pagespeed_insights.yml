@@ -1,6 +1,15 @@
 name : Testing - Pagespeed Insights
 on: 
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to deploy and test'
+        required: true
+        default: 'main'
+      staging_url:
+        description: 'The URL of the staging environment'
+        required: true
+        
 jobs:
   fetch_pagespeed:
     runs-on: ubuntu-latest
