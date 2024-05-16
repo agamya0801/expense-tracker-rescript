@@ -60,6 +60,34 @@ jobs:
             exit 1
           fi
 
+      - name: Set commit status to success
+        if: success()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ steps.get-sha.outputs.sha }}',
+              state: 'success',
+              context: 'fetch_pagespeed',
+              description: 'PageSpeed Check Passed'
+            })
+
+      - name: Set commit status to failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ steps.get-sha.outputs.sha }}',
+              state: 'failure',
+              context: 'fetch_pagespeed',
+              description: 'PageSpeed Check Failed'
+            })
+
       # - name: Set commit status to success
       #   if: success()
       #   env:
