@@ -67,7 +67,7 @@ jobs:
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-            -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "pagespeed-check"}' \
+            -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "fetch_pagespeed"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
           exit 0
 
@@ -78,6 +78,6 @@ jobs:
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-            -d '{"state": "failure", "target_url": "", "description": "PageSpeed Check Failed", "context": "pagespeed-check"}' \
+            -d '{"state": "failure", "target_url": "", "description": "PageSpeed Check Failed", "context": "fetch_pagespeed"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
           exit 1
