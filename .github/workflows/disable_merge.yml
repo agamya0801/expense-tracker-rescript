@@ -1,8 +1,11 @@
 name: Disable Merge on New Commits
 
+# on:
+#   pull_request:
+#     types: [opened, synchronize]
+
 on:
-  pull_request:
-    types: [opened, synchronize]
+  workflow_dispatch
 
 jobs:
   disable-merge:
