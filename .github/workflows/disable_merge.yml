@@ -23,7 +23,7 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/branches/$BRANCH/protection \
             -d '{
               "required_status_checks": {
-                "strict": true,
+                "strict": false,
                 "contexts": ["fetch_pagespeed"]
               },
               "enforce_admins": false,
