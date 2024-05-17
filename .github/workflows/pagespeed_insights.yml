@@ -73,6 +73,7 @@ jobs:
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "fetch_pagespeed"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
+          exit 0
 
       - name: Set commit status to failure
         if: failure()
@@ -85,21 +86,21 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
           exit 1
 
-      - name: Enable merge by updating the check status
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-        run: |
-          BRANCH=${{ github.event.inputs.branch }}
-          curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.luke-cage-preview+json" \
-            https://api.github.com/repos/${{ github.repository }}/branches/$BRANCH/protection \
-            -d '{
-              "required_status_checks": {
-                "strict": false,
-                "contexts": []
-              },
-              "enforce_admins": false,
-              "required_pull_request_reviews": null,
-              "restrictions": null
-            }'
+      # - name: Enable merge by updating the check status
+      #   if: success()
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
+      #   run: |
+      #     BRANCH=${{ github.event.inputs.branch }}
+      #     curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+      #       -H "Accept: application/vnd.github.luke-cage-preview+json" \
+      #       https://api.github.com/repos/${{ github.repository }}/branches/$BRANCH/protection \
+      #       -d '{
+      #         "required_status_checks": {
+      #           "strict": false,
+      #           "contexts": []
+      #         },
+      #         "enforce_admins": false,
+      #         "required_pull_request_reviews": null,
+      #         "restrictions": null
+      #       }'
