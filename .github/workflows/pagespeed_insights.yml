@@ -155,7 +155,7 @@ jobs:
       #           "strict": false,
       #           "contexts": []
       #         },
-              "enforce_admins": false,
-              "required_pull_request_reviews": null,
-              "restrictions": null
-            }'
+      #         "enforce_admins": false,
+      #         "required_pull_request_reviews": null,
+      #         "restrictions": null
+      #       }'
