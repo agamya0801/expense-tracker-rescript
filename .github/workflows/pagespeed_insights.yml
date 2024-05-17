@@ -70,48 +70,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
-          RESPONSE=$(curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
+          curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "fetch_pagespeed"}' \
-            https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA)
-          echo $RESPONSE
-          echo "::set-output name=response::$(echo $RESPONSE | jq -r '.state')"
-
-      - name: Get the pull request number
-        id: get-pr
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-        run: |
-          PR_NUMBER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/commits/${{ steps.get-sha.outputs.sha }}/pulls" | jq -r '.[0].number')
-          echo "::set-output name=pr_number::$PR_NUMBER"
-
-      - name: Enable branch merging if commit status is success
-        if: steps.set-status.outputs.response == 'success'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-        run: |
-          PR_NUMBER=${{ steps.get-pr.outputs.pr_number }}
-          if [ "$PR_NUMBER" != "null" ]; then
-            curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER/reviews \
-              -d '{"event": "APPROVE"}'
-            exit 0
-          fi
-
-      - name: Re-fetch pull request to check mergeability
-        id: check-mergeable
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-        run: |
-          PR_NUMBER=${{ steps.get-pr.outputs.pr_number }}
-          if [ "$PR_NUMBER" != "null" ]; then
-            PR_DETAILS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-              "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER")
-            echo $PR_DETAILS
-            MERGEABLE=$(echo $PR_DETAILS | jq -r '.mergeable')
-            echo "::set-output name=mergeable::$MERGEABLE"
-          fi
+            https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
+          exit 0
 
       - name: Set commit status to failure
         if: failure()
