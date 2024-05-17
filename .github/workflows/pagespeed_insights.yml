@@ -103,59 +103,21 @@ jobs:
           CHECK_RUN_ID=$(echo $RESPONSE | jq -r '.id')
           echo "::set-output name=check_run_id::$CHECK_RUN_ID"
 
-      - name: Complete check run with success
+      - name: Enable merge by updating the check status
         if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
         run: |
-          CHECK_RUN_ID=${{ steps.create-check.outputs.check_run_id }}
-          curl -s -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
+          BRANCH=${{ github.event.inputs.branch }}
+          curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.luke-cage-preview+json" \
+            https://api.github.com/repos/${{ github.repository }}/branches/$BRANCH/protection \
             -d '{
-              "status": "completed",
-              "completed_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-              "conclusion": "success",
-              "output": {
-                "title": "PageSpeed Check",
-                "summary": "PageSpeed Check Passed"
-              }
-            }' \
-            https://api.github.com/repos/${{ github.repository }}/check-runs/$CHECK_RUN_ID
-
-      - name: Complete check run with failure
-        if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-        run: |
-          CHECK_RUN_ID=${{ steps.create-check.outputs.check_run_id }}
-          curl -s -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            -d '{
-              "status": "completed",
-              "completed_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-              "conclusion": "failure",
-              "output": {
-                "title": "PageSpeed Check",
-                "summary": "PageSpeed Check Failed"
-              }
-            }' \
-            https://api.github.com/repos/${{ github.repository }}/check-runs/$CHECK_RUN_ID
-
-      # - name: Enable merge by updating the check status
-      #   if: success()
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-      #   run: |
-      #     BRANCH=${{ github.event.inputs.branch }}
-      #     curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" \
-      #       -H "Accept: application/vnd.github.luke-cage-preview+json" \
-      #       https://api.github.com/repos/${{ github.repository }}/branches/$BRANCH/protection \
-      #       -d '{
-      #         "required_status_checks": {
-      #           "strict": false,
-      #           "contexts": []
-      #         },
-      #         "enforce_admins": false,
-      #         "required_pull_request_reviews": null,
-      #         "restrictions": null
-      #       }'
+              "required_status_checks": {
+                "strict": false,
+                "contexts": []
+              },
+              "enforce_admins": false,
+              "required_pull_request_reviews": null,
+              "restrictions": null
+            }'
