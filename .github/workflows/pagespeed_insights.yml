@@ -99,6 +99,20 @@ jobs:
             exit 0
           fi
 
+      - name: Re-fetch pull request to check mergeability
+        id: check-mergeable
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
+        run: |
+          PR_NUMBER=${{ steps.get-pr.outputs.pr_number }}
+          if [ "$PR_NUMBER" != "null" ]; then
+            PR_DETAILS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUMBER")
+            echo $PR_DETAILS
+            MERGEABLE=$(echo $PR_DETAILS | jq -r '.mergeable')
+            echo "::set-output name=mergeable::$MERGEABLE"
+          fi
+
       - name: Set commit status to failure
         if: failure()
         env:
