@@ -3,12 +3,13 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'The branch to deploy and test'
+        description: 'Enter your PR branch'
         required: true
         default: 'main'
-      staging_url:
-        description: 'The URL of the staging environment'
+      ENV_BOX:
+        description: 'Enter the staging-box for testing pagespeed'
         required: true
+        default: '1'
         
 jobs:
   fetch_pagespeed:
@@ -31,12 +32,20 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
+      - name: Set URL based on ENV_BOX
+        id: set-url
+        run: |
+          if [ "${{ github.event.inputs.ENV_BOX }}" -eq "1" ]; then
+            echo "URL=https://fe-website-ssr-staging.porter.in" >> $GITHUB_ENV
+          else
+            echo "URL=https://fe-website-ssr-staging-${{ github.event.inputs.ENV_BOX }}.porter.in" >> $GITHUB_ENV
+
       - name: Run PageSpeed Insights API for Mobile
         id: pagespeed-mobile
         env:
           API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
         run: |
-          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ github.event.inputs.staging_url }}&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${URL}&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=mobile-score::$score"
 
       - name: Run PageSpeed Insights API for Desktop
@@ -44,7 +53,7 @@ jobs:
         env:
           API_KEY: AIzaSyBMukdnJE28tcjeznqyH22-N_zSnW4JL7o
         run: |
-          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${{ github.event.inputs.staging_url }}&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
+          score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${URL}&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=desktop-score::$score"
 
       - name: Check mobile performance score
