@@ -39,6 +39,7 @@ jobs:
             echo "URL=https://fe-website-ssr-staging.porter.in" >> $GITHUB_ENV
           else
             echo "URL=https://fe-website-ssr-staging-${{ github.event.inputs.ENV_BOX }}.porter.in" >> $GITHUB_ENV
+          fi
 
       - name: Run PageSpeed Insights API for Mobile
         id: pagespeed-mobile
