@@ -9,7 +9,11 @@ on:
       STAGING_BOX:
         description: 'Enter the staging-box for testing pagespeed'
         required: true
+        type: choice
         default: '1'
+        options:
+          - '1'
+          - '42'
 
 jobs:
   fetch_pagespeed:
