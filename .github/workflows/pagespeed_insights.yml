@@ -20,7 +20,7 @@ jobs:
       desktop-score: ${{ steps.pagespeed-desktop.outputs.desktop-score }}
 
     env:
-      PAGESPEED_API_KEY: ${{ env.PAGESPEED_INSIGHTS_API_KEY }}
+      PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_INSIGHTS_API_KEY }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       STAGING_BOX: ${{ github.event.inputs.STAGING_BOX }}
       BRANCH: ${{ github.event.inputs.branch }}
