@@ -1,4 +1,4 @@
-name : Testing - Pagespeed Insights
+name : Check Pagespeed Score
 on: 
   workflow_dispatch:
     inputs:
@@ -6,24 +6,32 @@ on:
         description: 'Enter your PR branch'
         required: true
         default: 'main'
-      ENV_BOX:
+      STAGING_BOX:
         description: 'Enter the staging-box for testing pagespeed'
         required: true
         default: '1'
-        
+
 jobs:
   fetch_pagespeed:
     runs-on: ubuntu-latest
-    
+
     outputs:
       mobile-score: ${{ steps.pagespeed-mobile.outputs.mobile-score }}
       desktop-score: ${{ steps.pagespeed-desktop.outputs.desktop-score }}
+
+    env:
+      PAGESPEED_API_KEY: ${{ env.PAGESPEED_INSIGHTS_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      STAGING_BOX: ${{ github.event.inputs.STAGING_BOX }}
+      BRANCH: ${{ github.event.inputs.branch }}
+      DEFAULT_STAGING_URL: "https://fe-website-ssr-staging.porter.in"
+      PAGESPEED_SCORE_THRESHOLD: 30
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.inputs.branch }}
+          ref: ${{ env.BRANCH }}
 
       - name: Get commit SHA
         id: get-sha
@@ -35,12 +43,11 @@ jobs:
       - name: Set URL based on ENV_BOX
         id: set-url
         run: |
-          if [ "${{ github.event.inputs.ENV_BOX }}" -eq "1" ]; then
-            echo "URL=https://fe-website-ssr-staging.porter.in" >> $GITHUB_ENV
+          if [ "${{ env.STAGING_BOX }}" -eq "1" ]; then
+            echo "URL=${{ env.DEFAULT_STAGING_URL }}" >> $GITHUB_ENV
           else
-            echo "URL=https://fe-website-ssr-staging-${{ github.event.inputs.ENV_BOX }}.porter.in" >> $GITHUB_ENV
+            echo "URL=https://fe-website-ssr-staging-${{ env.STAGING_BOX }}.porter.in" >> $GITHUB_ENV
           fi
-
       - name: Run PageSpeed Insights API for Mobile
         id: pagespeed-mobile
         env:
@@ -48,7 +55,6 @@ jobs:
         run: |
           score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${URL}&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=mobile-score::$score"
-
       - name: Run PageSpeed Insights API for Desktop
         id: pagespeed-desktop
         env:
@@ -56,61 +62,40 @@ jobs:
         run: |
           score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${URL}&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=desktop-score::$score"
-
       - name: Check mobile performance score
         run: |
           mobileScore=${{ steps.pagespeed-mobile.outputs.mobile-score }}
-          if (( $(echo "$mobileScore < 30" | bc -l) )); then
-            echo "Mobile performance score is below the acceptable threshold (50)."
+          threshold=${{ env.PAGESPEED_SCORE_THRESHOLD }}
+          if (( $(echo "$mobileScore < $threshold" | bc -l) )); then
+            echo "Mobile performance score is below the acceptable threshold ($threshold)."
             exit 1
           fi
-
       - name: Check desktop performance score
         run: |
           desktopScore=${{ steps.pagespeed-desktop.outputs.desktop-score }}
-          if (( $(echo "$desktopScore < 30" | bc -l) )); then
-            echo "Desktop performance score is below the acceptable threshold (50)."
+          threshold=${{ env.PAGESPEED_SCORE_THRESHOLD }}
+          if (( $(echo "$desktopScore < $threshold" | bc -l) )); then
+            echo "Desktop performance score is below the acceptable threshold ($threshold)."
             exit 1
           fi
-
       - name: Set commit status to success
         id: set-status
         if: success()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "success", "target_url": "", "description": "PageSpeed Check Passed", "context": "fetch_pagespeed"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
           exit 0
-
       - name: Set commit status to failure
         if: failure()
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         run: |
           COMMIT_SHA=${{ steps.get-sha.outputs.sha }}
           curl -s -X POST -H "Authorization: token $GITHUB_TOKEN" \
             -d '{"state": "failure", "target_url": "", "description": "PageSpeed Check Failed", "context": "fetch_pagespeed"}' \
             https://api.github.com/repos/${{ github.repository }}/statuses/$COMMIT_SHA
           exit 1
-
-      # - name: Enable merge by updating the check status
-      #   if: success()
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
-      #   run: |
-      #     BRANCH=${{ github.event.inputs.branch }}
-      #     curl -s -X PUT -H "Authorization: token $GITHUB_TOKEN" \
-      #       -H "Accept: application/vnd.github.luke-cage-preview+json" \
-      #       https://api.github.com/repos/${{ github.repository }}/branches/$BRANCH/protection \
-      #       -d '{
-      #         "required_status_checks": {
-      #           "strict": false,
-      #           "contexts": []
-      #         },
-      #         "enforce_admins": false,
-      #         "required_pull_request_reviews": null,
-      #         "restrictions": null
-      #       }'
