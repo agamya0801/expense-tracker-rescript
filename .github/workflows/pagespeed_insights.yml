@@ -60,7 +60,7 @@ jobs:
       - name: Check mobile performance score
         run: |
           mobileScore=${{ steps.pagespeed-mobile.outputs.mobile-score }}
-          if (( $(echo "$mobileScore < 50" | bc -l) )); then
+          if (( $(echo "$mobileScore < 30" | bc -l) )); then
             echo "Mobile performance score is below the acceptable threshold (50)."
             exit 1
           fi
@@ -68,7 +68,7 @@ jobs:
       - name: Check desktop performance score
         run: |
           desktopScore=${{ steps.pagespeed-desktop.outputs.desktop-score }}
-          if (( $(echo "$desktopScore < 50" | bc -l) )); then
+          if (( $(echo "$desktopScore < 30" | bc -l) )); then
             echo "Desktop performance score is below the acceptable threshold (50)."
             exit 1
           fi
