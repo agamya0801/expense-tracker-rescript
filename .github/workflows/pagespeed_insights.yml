@@ -44,7 +44,7 @@ jobs:
       - name: Run PageSpeed Insights API for Mobile
         id: pagespeed-mobile
         env:
-          API_KEY: 2cf4070d486f4822664fe05cc5591695e426af17
+          API_KEY: c43aeb0692375b1dd28be3ba3f6e5220bf7aebf5
         run: |
           score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${URL}&key=${API_KEY}&strategy=mobile" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=mobile-score::$score"
@@ -52,7 +52,7 @@ jobs:
       - name: Run PageSpeed Insights API for Desktop
         id: pagespeed-desktop
         env:
-          API_KEY: 2cf4070d486f4822664fe05cc5591695e426af17
+          API_KEY: c43aeb0692375b1dd28be3ba3f6e5220bf7aebf5
         run: |
           score=$(curl -s "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${URL}&key=${API_KEY}&strategy=desktop" | jq '.lighthouseResult.categories.performance.score * 100')
           echo "::set-output name=desktop-score::$score"
